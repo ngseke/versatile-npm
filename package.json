@@ -10,6 +10,12 @@
     "lint": "npx eslint . --ext .ts,.js,.cjs,.vue",
     "lint:fix": "npx eslint --fix . --ext .ts,.js,.cjs,.vue"
   },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8",
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm"
+  },
   "dependencies": {
     "vue": "^3.3.8"
   },
