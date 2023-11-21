@@ -1,18 +1,36 @@
-# Vue 3 + TypeScript + Vite
+<p align=center>
+  <img src="src/assets/img/icon.png" width="200"/>
+</p>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<p align=center>
+  A browser extension that does something special
+</p>
 
-## Recommended IDE Setup
+<p align=center>
+  <a href="https://github.com/ngseke/versatile-npm/actions">
+    <img src="https://github.com/ngseke/versatile-npm/actions/workflows/release.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/ngseke/versatile-npm/releases">
+    <img src="https://img.shields.io/github/v/release/ngseke/versatile-npm?sort=semver" />
+  </a>
+</p>
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# Versatile Npm
 
-## Type Support For `.vue` Imports in TS
+## Features
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Installation
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### Manual Download
+
+Download latest `build.zip` from [releases](https://github.com/ngseke/versatile-npm/releases) and unzip.
+
+<details>
+  <summary>Installation Steps</summary>
+
+  1. Access [chrome://extensions/](chrome://extensions/)
+  2. Check `Developer mode`
+  3. Click on `Load unpacked extension`
+  4. Select the extracted folder  for use
+</details>
