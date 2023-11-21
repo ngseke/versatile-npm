@@ -43,6 +43,10 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/no-misused-promises': ['error', {
+      checksVoidReturn: false,
+    }],
+
     'vue/multi-word-component-names': 'off',
     'vue/max-attributes-per-line': ['error', {
       singleline: { max: 3 },
