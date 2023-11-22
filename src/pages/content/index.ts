@@ -1,5 +1,5 @@
 import { loadCustomCommands } from '../../modules/storage'
-import { getNpmPackageName, selectNpmCommandOriginalComponent } from './modules/npmPage'
+import { getNpmPackageName, selectNpmCommandOriginalComponent, selectSparkLine as selectWeeklyDownloadsSparkLine } from './modules/npmPage'
 import { renderVersatileNpm } from './modules/versatileNpm'
 
 const renderedElements: Element[] = []
@@ -10,8 +10,13 @@ function checkShouldRender () {
     const packageName = getNpmPackageName()
     const isPackageNameChanged = packageName && packageName !== currentPackageName
     const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
+    const hasWeeklyDownloadsSparkLine = Boolean(selectWeeklyDownloadsSparkLine())
 
-    const shouldRender = isPackageNameChanged && hasOriginalComponent
+    const shouldRender = [
+      isPackageNameChanged,
+      hasOriginalComponent,
+      hasWeeklyDownloadsSparkLine,
+    ].every(Boolean)
 
     if (!shouldRender) return false
   } catch (err) {
