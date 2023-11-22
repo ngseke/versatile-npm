@@ -32,5 +32,9 @@ export default defineManifest(async () => ({
     open_in_tab: true,
     page: 'src/pages/options/index.html',
   },
+  background: {
+    service_worker: 'src/pages/background/index.ts',
+    type: 'module',
+  },
   permissions: ['storage'],
 }))
