@@ -3,6 +3,6 @@
     "message": "Versatile Npm"
   },
   "appDesc": {
-    "message": "Make Npm versatile"
+    "message": "A browser extension that lets you customize install commands on Npm."
   }
 }

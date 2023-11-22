@@ -3,7 +3,7 @@
 </p>
 
 <p align=center>
-  A browser extension that does something special
+  A browser extension that lets you customize install commands on Npm.
 </p>
 
 <p align=center>
