@@ -30,8 +30,8 @@ function destroyRenderedElements () {
   renderedElements.length = 0
 }
 
-async function render () {
-  if (!checkShouldRender()) return false
+async function render (force = false) {
+  if (!checkShouldRender() && !force) return false
 
   destroyRenderedElements()
   currentPackageName = getNpmPackageName()
@@ -50,10 +50,19 @@ async function render () {
   return true
 }
 
-new MutationObserver(render)
-  .observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-  })
+function startObserverAndListener () {
+  // 1. attempt to render when loaded
+  render()
 
-render()
+  // 2. attempt to render when DOM changes
+  new MutationObserver(async () => await render())
+    .observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    })
+
+  // 3. attempt to render when options change
+  chrome.storage.onChanged.addListener(async () => await render(true))
+}
+
+startObserverAndListener()
