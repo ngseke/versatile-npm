@@ -1,4 +1,4 @@
-import { loadCustomCommands } from '../../modules/storage'
+import { loadCustomCommands, loadIsEnabled } from '../../modules/storage'
 import { getNpmPackageName, selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
 import { renderVersatileNpm } from './modules/versatileNpm'
 
@@ -34,6 +34,9 @@ async function render (force = false) {
   if (!checkShouldRender() && !force) return false
 
   destroyRenderedElements()
+  const isEnabled = await loadIsEnabled()
+  if (!isEnabled) return
+
   currentPackageName = getNpmPackageName()
 
   const list = await loadCustomCommands()

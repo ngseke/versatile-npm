@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import AppLayout from '../../components/AppLayout.vue'
-import CustomCommandList from '../../components/CustomCommandList.vue'
-import DefaultCommandList from '../../components/DefaultCommandList.vue'
+import OptionList from '../../components/OptionList.vue'
+import CustomCommandCard from '../../components/CustomCommandCard.vue'
 </script>
 
 <template>
   <AppLayout>
-    <DefaultCommandList />
-    <CustomCommandList />
+    <OptionList />
+    <CustomCommandCard />
   </AppLayout>
 </template>

@@ -6,7 +6,7 @@ const command = 'npm i <package>'
 </script>
 
 <template>
-  <VList lines="one" rounded="lg">
+  <VList lines="one">
     <VListSubheader>
       Default Command
     </VListSubheader>

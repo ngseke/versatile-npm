@@ -7,7 +7,7 @@ import { VCol, VContainer, VRow } from 'vuetify/components'
   <VContainer>
     <VRow justify="center">
       <VCol :cols="12" :lg="6" :sm="8">
-        <div class="d-flex flex-column flex-wrap ga-4">
+        <div class="d-flex flex-column flex-wrap ga-3">
           <slot />
         </div>
       </VCol>

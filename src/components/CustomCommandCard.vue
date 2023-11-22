@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch, computed, nextTick, ref } from 'vue'
-import { VList, VListItem, VListSubheader } from 'vuetify/components'
+import { VCard, VList, VListItem, VListItemAction, VListSubheader } from 'vuetify/components'
 import Draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
 import { useCustomCommands } from '../composables/useCustomCommands'
@@ -12,6 +12,7 @@ import SuggestionChips from './SuggestionChips.vue'
 import { useCustomCommandSuggestions } from '../composables/useCustomCommandSuggestions'
 import { isEqual } from '../modules/isEqual'
 import CommandTextField from './CommandTextField.vue'
+import DefaultCommandList from './DefaultCommandList.vue'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
 const { customCommandDrafts: drafts } = useCustomCommandsDraft()
@@ -82,55 +83,63 @@ const isExceeded = computed(
 </script>
 
 <template>
-  <VList v-if="drafts" lines="one" rounded="lg">
-    <VListSubheader>
-      Custom Commands
-      <AddButton :disabled="isExceeded" @click="handleClickAdd" />
-    </VListSubheader>
-
-    <TransitionGroup name="list">
-      <Draggable
-        v-if="drafts"
-        v-model="drafts"
-        v-bind="dragOptions"
-      >
-        <template #item="{ element, index }">
-          <VListItem color="transparent" tabindex="0">
-            <template #prepend>
-              <DragHandle class="handle" />
-            </template>
-
-            <CommandTextField
-              :ref="el => setTextFieldRef(el, index)"
-              v-model="element.value"
-            />
-
-            <template #append>
-              <RemoveButton @click="remove(element.id)" />
-            </template>
-          </VListItem>
-        </template>
-      </Draggable>
-    </TransitionGroup>
-
-    <VListItem v-if="!drafts?.length" disabled>
-      <span>
-        No custom commands
-      </span>
-    </VListItem>
-
-    <VListItem
-      v-if="unusedCustomCommandSuggestions.length "
-      color="transparent"
-      tabindex="0"
+  <VCard rounded="lg">
+    <DefaultCommandList />
+    <VList
+      v-if="drafts"
+      density="compact"
+      lines="one"
     >
-      <SuggestionChips
-        :disabled="isExceeded"
-        :list="unusedCustomCommandSuggestions"
-        @click="(value) => add(value.value)"
-      />
-    </VListItem>
-  </VList>
+      <VListSubheader>
+        Custom Commands
+        <AddButton :disabled="isExceeded" @click="handleClickAdd" />
+      </VListSubheader>
+
+      <TransitionGroup name="list">
+        <Draggable
+          v-if="drafts"
+          v-model="drafts"
+          v-bind="dragOptions"
+        >
+          <template #item="{ element, index }">
+            <VListItem color="transparent" tabindex="0">
+              <template #prepend>
+                <VListItemAction>
+                  <DragHandle class="handle" />
+                </VListItemAction>
+              </template>
+              <CommandTextField
+                :ref="el => setTextFieldRef(el, index)"
+                v-model="element.value"
+              />
+
+              <template #append>
+                <RemoveButton @click="remove(element.id)" />
+              </template>
+            </VListItem>
+          </template>
+        </Draggable>
+      </TransitionGroup>
+
+      <VListItem v-if="!drafts?.length" disabled>
+        <span>
+          No custom commands
+        </span>
+      </VListItem>
+
+      <VListItem
+        v-if="unusedCustomCommandSuggestions.length "
+        color="transparent"
+        tabindex="0"
+      >
+        <SuggestionChips
+          :disabled="isExceeded"
+          :list="unusedCustomCommandSuggestions"
+          @click="(value) => add(value.value)"
+        />
+      </VListItem>
+    </VList>
+  </VCard>
 </template>
 
 <style lang="sass" scoped>
