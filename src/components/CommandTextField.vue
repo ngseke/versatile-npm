@@ -3,8 +3,8 @@ import { VTextField } from 'vuetify/components'
 import { ref, nextTick } from 'vue'
 import CustomCommandChunks from './CustomCommandChunks.vue'
 
-const props = defineProps<{ modelValue: string }>()
-const emits = defineEmits<{
+defineProps<{ modelValue: string }>()
+defineEmits<{
   'update:modelValue': [value: string]
   'remove': []
 }>()
@@ -22,7 +22,6 @@ async function activate () {
 function handleUpdateFocused (isFocused: boolean) {
   if (isFocused) return
   isActive.value = false
-  if (!props.modelValue) emits('remove')
 }
 
 function handleKeydown () {
@@ -35,7 +34,7 @@ defineExpose({ activate })
 <template>
   <button
     v-if="!isActive"
-    class="px-4 py-2 mono text-subtitle-1 d-inline-block text-truncate"
+    class="px-4 py-2 mono text-subtitle-1 d-inline-block text-truncate w-100 text-left"
     :style="{ lineHeight: 'normal' }"
     type="button"
     @click="activate"

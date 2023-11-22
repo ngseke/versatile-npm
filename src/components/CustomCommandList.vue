@@ -37,7 +37,6 @@ function save () {
   if (isEqual(newCommands, customCommands.value)) return
 
   const filteredCommand = newCommands
-    .filter((command) => command.trim().length)
 
   saveCustomCommands(filteredCommand)
 }
@@ -80,11 +79,10 @@ const { unusedCustomCommandSuggestions } = useCustomCommandSuggestions(drafts)
 const isExceeded = computed(
   () => (drafts.value?.length ?? Infinity) >= 20
 )
-
 </script>
 
 <template>
-  <VList lines="one" rounded="lg">
+  <VList v-if="drafts" lines="one" rounded="lg">
     <VListSubheader>
       Custom Commands
       <AddButton :disabled="isExceeded" @click="handleClickAdd" />
@@ -105,7 +103,6 @@ const isExceeded = computed(
             <CommandTextField
               :ref="el => setTextFieldRef(el, index)"
               v-model="element.value"
-              @remove="remove(element.id)"
             />
 
             <template #append>
@@ -123,7 +120,7 @@ const isExceeded = computed(
     </VListItem>
 
     <VListItem
-      v-if="unusedCustomCommandSuggestions.length"
+      v-if="unusedCustomCommandSuggestions.length "
       color="transparent"
       tabindex="0"
     >
