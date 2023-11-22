@@ -25,6 +25,7 @@ export const packageManagers = new Set([
   'yarn',
   'ni',
   'cnpm',
+  'bun',
 ])
 
 export interface CustomCommandChunk {
