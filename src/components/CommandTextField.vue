@@ -20,8 +20,7 @@ async function activate () {
 }
 
 function handleUpdateFocused (isFocused: boolean) {
-  if (isFocused) return
-  isActive.value = false
+  isActive.value = isFocused
 }
 
 function handleKeydown () {
@@ -32,32 +31,52 @@ defineExpose({ activate })
 </script>
 
 <template>
-  <button
-    v-if="!isActive"
-    class="px-4 py-2 mono text-subtitle-1 d-inline-block text-truncate w-100 text-left"
-    :style="{ lineHeight: 'normal' }"
-    type="button"
-    @click="activate"
-  >
-    <CustomCommandChunks :modelValue="modelValue" />
-  </button>
+  <div class="position-relative">
+    <Transition name="fade">
+      <div
+        v-if="!isActive"
+        class="cover px-4 py-2 w-100 h-100 mono text-subtitle-1 text-truncate text-left position-absolute"
+      >
+        <CustomCommandChunks :modelValue="modelValue" />
+      </div>
+    </Transition>
 
-  <VTextField
-    v-else
-    ref="textField"
-    class="mono"
-    density="compact"
-    flat
-    hideDetails
-    :maxlength="1000"
-    :modelValue="modelValue"
-    placeholder="npm i <package>"
-    rounded
-    singleLine
-    variant="solo-filled"
-    @keydown.enter.prevent="handleKeydown"
-    @keydown.esc.prevent="handleKeydown"
-    @update:focused="handleUpdateFocused"
-    @update:modelValue="$emit('update:modelValue', $event)"
-  />
+    <VTextField
+      ref="textField"
+      class="mono"
+      :class="{ transparent: !isActive }"
+      density="compact"
+      flat
+      hideDetails
+      :maxlength="1000"
+      :modelValue="modelValue"
+      placeholder="npm i <package>"
+      rounded
+      singleLine
+      variant="solo-filled"
+      @keydown.enter.prevent="handleKeydown"
+      @keydown.esc.prevent="handleKeydown"
+      @update:focused="handleUpdateFocused"
+      @update:modelValue="$emit('update:modelValue', $event)"
+    />
+  </div>
 </template>
+
+<style lang="sass" scoped>
+.cover
+  line-height: 1.5
+  top: 0
+  left: 0
+  z-index: 1
+  pointer-events: none
+
+.transparent
+  :deep(input)
+    color: transparent
+
+.fade
+  &-leave-active
+    transition: opacity .15s
+  &-leave-to
+    opacity: 0
+</style>
