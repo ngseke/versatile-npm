@@ -1,5 +1,5 @@
 import { loadCustomCommands } from '../../modules/storage'
-import { getNpmPackageName, selectNpmCommandOriginalComponent, selectSparkLine as selectWeeklyDownloadsSparkLine } from './modules/npmPage'
+import { getNpmPackageName, selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
 import { renderVersatileNpm } from './modules/versatileNpm'
 
 const renderedElements: Element[] = []

@@ -9,7 +9,7 @@ function cloneOriginalComponent () {
 
 function renderEmphasis (text: string) {
   const $element = document.createElement('strong')
-  $element.innerText = `${text}`
+  $element.innerText = text
   $element.classList.add(style.emphasis)
   return $element
 }
