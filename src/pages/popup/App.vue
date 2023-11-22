@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import AppLayout from '../../components/AppLayout.vue'
+import CustomCommandList from '../../components/CustomCommandList.vue'
+import DefaultCommandList from '../../components/DefaultCommandList.vue'
 </script>
 
 <template>
-  <div>Popup</div>
+  <AppLayout>
+    <DefaultCommandList />
+    <CustomCommandList />
+  </AppLayout>
 </template>
-
-<style scoped>
-</style>

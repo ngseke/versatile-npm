@@ -1,0 +1,145 @@
+<script setup lang="ts">
+import { watch, computed, nextTick, ref } from 'vue'
+import { VList, VListItem, VListSubheader } from 'vuetify/components'
+import Draggable from 'vuedraggable'
+import { nanoid } from 'nanoid'
+import { useCustomCommands } from '../composables/useCustomCommands'
+import { useCustomCommandsDraft } from '../composables/useCustomCommandsDraft'
+import RemoveButton from './RemoveButton.vue'
+import DragHandle from './DragHandle.vue'
+import AddButton from './AddButton.vue'
+import SuggestionChips from './SuggestionChips.vue'
+import { useCustomCommandSuggestions } from '../composables/useCustomCommandSuggestions'
+import { isEqual } from '../modules/isEqual'
+import CommandTextField from './CommandTextField.vue'
+
+const { customCommands, saveCustomCommands } = useCustomCommands()
+const { customCommandDrafts: drafts } = useCustomCommandsDraft()
+
+function setDraftsFromCustomCommands (commands: string[]) {
+  drafts.value = commands.map((value) => ({ id: nanoid(), value }))
+}
+
+watch(customCommands, (customCommands) => {
+  if (!customCommands) return
+  const commands = drafts.value?.map(({ value }) => value)
+
+  if (isEqual(commands, customCommands)) return
+
+  setDraftsFromCustomCommands(customCommands)
+})
+
+watch(drafts, save, { deep: true })
+
+function save () {
+  if (!drafts.value) return
+  const newCommands = drafts.value?.map(({ value }) => value)
+  if (isEqual(newCommands, customCommands.value)) return
+
+  const filteredCommand = newCommands
+    .filter((command) => command.trim().length)
+
+  saveCustomCommands(filteredCommand)
+}
+
+function remove (id: string) {
+  if (!drafts.value) return
+  drafts.value = drafts.value
+    .filter(item => item.id !== id)
+}
+
+function add (value: string) {
+  drafts.value?.push({ id: nanoid(), value })
+}
+
+const textFieldRefs = ref<Array<InstanceType<typeof CommandTextField>>>([])
+function setTextFieldRef (el: any, index: number) {
+  textFieldRefs.value[index] = el
+}
+
+function activateLastTextField () {
+  textFieldRefs.value.filter(Boolean).at(-1)
+    ?.activate()
+}
+
+async function handleClickAdd () {
+  add('<package>')
+  await nextTick()
+  activateLastTextField()
+}
+
+const dragOptions = {
+  animation: 200,
+  ghostClass: 'ghost',
+  handle: '.handle',
+  itemKey: 'id',
+}
+
+const { unusedCustomCommandSuggestions } = useCustomCommandSuggestions(drafts)
+
+const isExceeded = computed(
+  () => (drafts.value?.length ?? Infinity) >= 20
+)
+
+</script>
+
+<template>
+  <VList lines="one" rounded="lg">
+    <VListSubheader>
+      Custom Commands
+      <AddButton :disabled="isExceeded" @click="handleClickAdd" />
+    </VListSubheader>
+
+    <TransitionGroup name="list">
+      <Draggable
+        v-if="drafts"
+        v-model="drafts"
+        v-bind="dragOptions"
+      >
+        <template #item="{ element, index }">
+          <VListItem color="transparent" tabindex="0">
+            <template #prepend>
+              <DragHandle class="handle" />
+            </template>
+
+            <CommandTextField
+              :ref="el => setTextFieldRef(el, index)"
+              v-model="element.value"
+              @remove="remove(element.id)"
+            />
+
+            <template #append>
+              <RemoveButton @click="remove(element.id)" />
+            </template>
+          </VListItem>
+        </template>
+      </Draggable>
+    </TransitionGroup>
+
+    <VListItem v-if="!drafts?.length" disabled>
+      <span>
+        No custom commands
+      </span>
+    </VListItem>
+
+    <VListItem
+      v-if="unusedCustomCommandSuggestions.length"
+      color="transparent"
+      tabindex="0"
+    >
+      <SuggestionChips
+        :disabled="isExceeded"
+        :list="unusedCustomCommandSuggestions"
+        @click="(value) => add(value.value)"
+      />
+    </VListItem>
+  </VList>
+</template>
+
+<style lang="sass" scoped>
+.ghost
+  opacity: 0.5
+
+.handle
+  cursor: move
+</style>

@@ -1,15 +1,21 @@
+import { nanoid } from 'nanoid'
+
 export const packageNamePlaceholder = '<package>'
+
+export const customCommandSuggestions = [
+  `npm i -D ${packageNamePlaceholder}`,
+  `pnpm i ${packageNamePlaceholder}`,
+  `yarn add ${packageNamePlaceholder}`,
+]
 
 export function generateDefaultCustomCommands () {
   return [
-    `npm i -D ${packageNamePlaceholder}`,
-    `pnpm i ${packageNamePlaceholder}`,
-    `yarn add ${packageNamePlaceholder}`,
+    ...customCommandSuggestions,
     `${packageNamePlaceholder} `,
   ]
 }
 
-export function parseCustomCommand (template: string, packageName: string) {
+export function generateCustomCommand (template: string, packageName: string) {
   return template.replaceAll(packageNamePlaceholder, packageName)
 }
 
@@ -20,3 +26,26 @@ export const packageManagers = new Set([
   'ni',
   'cnpm',
 ])
+
+export interface CustomCommandChunk {
+  id: string
+  type: 'packageManager' | 'packageNamePlaceholder' | 'text'
+  value: string
+}
+
+export function parseCustomCommand (command: string): CustomCommandChunk[] {
+  const chunks = command.split(' ')
+  return chunks.map((value) => {
+    const getChunk = (type: CustomCommandChunk['type']) => (
+      { id: nanoid(), type, value }
+    )
+
+    const isPackageManager = packageManagers.has(value)
+    if (isPackageManager) return getChunk('packageManager')
+
+    const isPackageNamePlaceholder = value === packageNamePlaceholder
+    if (isPackageNamePlaceholder) return getChunk('packageNamePlaceholder')
+
+    return getChunk('text')
+  })
+}

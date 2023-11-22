@@ -1,5 +1,5 @@
 import { getNpmPackageName } from './npmPage'
-import { parseCustomCommand } from '../../../modules/customCommands'
+import { generateCustomCommand } from '../../../modules/customCommands'
 import { renderCustomCommand } from './customCommand'
 import { showNotification } from './notification'
 import { renderCustomCommandSection } from './customCommandSection'
@@ -9,7 +9,7 @@ export function renderVersatileNpm (customCommandTemplates: string[]) {
   const packageName = getNpmPackageName() ?? ''
 
   customCommandTemplates
-    .map((template) => parseCustomCommand(template, packageName))
+    .map((template) => generateCustomCommand(template, packageName))
     .forEach((command) => {
       const $customCommand = renderCustomCommand(command, {
         onClickCopy () {

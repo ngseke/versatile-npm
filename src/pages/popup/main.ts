@@ -1,4 +1,10 @@
 import { createApp } from 'vue'
+import { registerPlugins } from '../../modules/plugins'
 import App from './App.vue'
+import './popup.sass'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+registerPlugins(app)
+
+app.mount('#app')
