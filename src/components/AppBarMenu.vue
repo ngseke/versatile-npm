@@ -25,7 +25,7 @@ const list: Item[] = [
   {
     title: 'GitHub',
     icon: 'fa-brands fa-github',
-    href: 'https://github.com/ngseke/versatile-npm/issues',
+    href: 'https://github.com/ngseke/versatile-npm',
   },
   {
     title: 'Report Issue',

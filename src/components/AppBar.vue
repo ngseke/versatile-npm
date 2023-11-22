@@ -9,6 +9,7 @@ import AppBarMenu from './AppBarMenu.vue'
       Versatile
       <span class="text-red font-weight-black">Npm</span>
     </VAppBarTitle>
+
     <template #append>
       <AppBarMenu />
     </template>
