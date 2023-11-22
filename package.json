@@ -17,7 +17,8 @@
     "yarn": "please-use-pnpm"
   },
   "dependencies": {
-    "vue": "^3.3.8"
+    "vue": "^3.3.8",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
