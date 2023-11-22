@@ -1,6 +1,6 @@
 import { selectNpmCommandOriginalComponent } from './npmPage'
 import style from './customCommand.module.sass'
-import { packageManagers } from '../../../modules/customCommands'
+import { parseCustomCommand } from '../../../modules/customCommands'
 
 function cloneOriginalComponent () {
   const originalComponent = selectNpmCommandOriginalComponent()
@@ -24,11 +24,11 @@ export function renderCustomCommand (
 
   $code.innerText = ''
 
-  const commandChunks = command.split(' ')
-  commandChunks.forEach((commandChunk) => {
-    const isPackageManager = packageManagers.has(commandChunk)
+  const chunks = parseCustomCommand(command)
+  chunks.forEach(({ value, type }) => {
+    const isPackageManager = type === 'packageManager'
     $code.append(
-      isPackageManager ? renderEmphasis(commandChunk) : commandChunk,
+      isPackageManager ? renderEmphasis(value) : value,
       ' '
     )
   })
