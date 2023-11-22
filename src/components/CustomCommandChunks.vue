@@ -36,5 +36,5 @@ const space = ' '
 .gradient
   -webkit-background-clip: text
   -webkit-text-fill-color: transparent
-  background-image: linear-gradient(150deg, #f77062 0%, #fe5196 100%)
+  background-image: linear-gradient(150deg, #F44336, #fe5196)
 </style>

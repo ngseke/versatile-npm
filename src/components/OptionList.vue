@@ -24,7 +24,6 @@ watch(() => selectedItem.value.includes(isEnabledSymbol), (value) => {
     <VList
       v-model:selected="selectedItem"
       density="compact"
-
       lines="one"
       variant="elevated"
     >
