@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "vue": "^3.3.8",
-    "vuedraggable": "^4.1.0"
+    "vuedraggable": "^4.1.0",
+    "vuetify": "^3.4.3"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
