@@ -37,6 +37,7 @@ const list: Item[] = [
     icon: 'fa-solid fa-mug-hot',
     href: 'https://ko-fi.com/L3L3D5N8A',
   },
+  'divider',
   {
     title: 'Version',
     subtitle: VERSION,
