@@ -10,3 +10,9 @@ export function $ (selector: string) {
 
   return element
 }
+
+export function $$ (selector: string) {
+  const elements = document.querySelectorAll(selector)
+
+  return [...elements]
+}

@@ -3,9 +3,18 @@ import { generateCustomCommand } from '../../../modules/customCommands'
 import { renderCustomCommand } from './customCommand'
 import { showNotification } from './notification'
 import { renderCustomCommandSection } from './customCommandSection'
+import { $$ } from './dom'
+
+const DATASET_KEY = 'versatilenpm'
+
+export function selectAllRenderedVersatileNpm () {
+  return $$(`[data-${DATASET_KEY}]`)
+}
 
 export function renderVersatileNpm (customCommandTemplates: string[]) {
   const $section = renderCustomCommandSection()
+  $section.dataset[DATASET_KEY] = ''
+
   const packageName = getNpmPackageName() ?? ''
 
   customCommandTemplates

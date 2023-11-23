@@ -1,21 +1,17 @@
 import { loadCustomCommands, loadIsEnabled } from '../../modules/storage'
-import { getNpmPackageName, selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
-import { renderVersatileNpm } from './modules/versatileNpm'
-
-const renderedElements: Element[] = []
-let currentPackageName: null | string = null
+import { selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
+import { renderVersatileNpm, selectAllRenderedVersatileNpm } from './modules/versatileNpm'
 
 function checkShouldRender () {
   try {
-    const packageName = getNpmPackageName()
-    const isPackageNameChanged = packageName && packageName !== currentPackageName
     const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
     const hasWeeklyDownloadsSparkLine = Boolean(selectWeeklyDownloadsSparkLine())
+    const isRendered = Boolean(selectAllRenderedVersatileNpm().length)
 
     const shouldRender = [
-      isPackageNameChanged,
       hasOriginalComponent,
       hasWeeklyDownloadsSparkLine,
+      !isRendered,
     ].every(Boolean)
 
     if (!shouldRender) return false
@@ -26,46 +22,39 @@ function checkShouldRender () {
 }
 
 function destroyRenderedElements () {
-  renderedElements.forEach($element => { $element.remove() })
-  renderedElements.length = 0
+  selectAllRenderedVersatileNpm()
+    .forEach($element => { $element.remove() })
 }
 
-async function render (force = false) {
-  if (!checkShouldRender() && !force) return false
+async function tryRender (force = false) {
+  const commands = await loadCustomCommands()
+  const isEnabled = await loadIsEnabled()
+
+  if (!(checkShouldRender() || force)) return false
 
   destroyRenderedElements()
-  const isEnabled = await loadIsEnabled()
   if (!isEnabled) return
 
-  currentPackageName = getNpmPackageName()
-
-  const list = await loadCustomCommands()
-
-  const $versatileNpm = renderVersatileNpm(list)
+  const $versatileNpm = renderVersatileNpm(commands)
   const $originalComponent = selectNpmCommandOriginalComponent()
   $originalComponent.after($versatileNpm)
-
-  renderedElements.push($versatileNpm)
-  const pagePackageName = getNpmPackageName()
-
-  currentPackageName = pagePackageName
 
   return true
 }
 
 function startObserverAndListener () {
-  // 1. attempt to render when loaded
-  render()
+  // 1. try to render when loaded
+  tryRender()
 
-  // 2. attempt to render when DOM changes
-  new MutationObserver(async () => await render())
+  // 2. try to render when DOM changes
+  new MutationObserver(async () => await tryRender())
     .observe(document.documentElement, {
       childList: true,
       subtree: true,
     })
 
-  // 3. attempt to render when options change
-  chrome.storage.onChanged.addListener(async () => await render(true))
+  // 3. try to render when options change
+  chrome.storage.onChanged.addListener(async () => await tryRender(true))
 }
 
 startObserverAndListener()
