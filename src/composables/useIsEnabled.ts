@@ -1,5 +1,6 @@
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { loadIsEnabled, saveIsEnabled } from '../modules/storage'
+import { useChromeStorageListener } from './useChromeStorageListener'
 
 export function useIsEnabled () {
   const isEnabled = ref<boolean | null>(null)
@@ -8,14 +9,8 @@ export function useIsEnabled () {
     isEnabled.value = await loadIsEnabled()
   }
 
-  onMounted(async () => {
-    isEnabled.value = await loadIsEnabled()
-    chrome.storage.onChanged.addListener(handler)
-  })
-
-  onUnmounted(() => {
-    chrome.storage.onChanged.removeListener(handler)
-  })
+  onMounted(handler)
+  useChromeStorageListener(handler)
 
   watch(isEnabled, (isEnabled) => {
     if (isEnabled == null) return

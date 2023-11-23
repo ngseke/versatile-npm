@@ -1,6 +1,7 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { loadCustomCommands, saveCustomCommands } from '../modules/storage'
 import { generateDefaultCustomCommands } from '../modules/customCommands'
+import { useChromeStorageListener } from './useChromeStorageListener'
 
 export function useCustomCommands () {
   const customCommands = ref<string[] | null>(null)
@@ -9,14 +10,8 @@ export function useCustomCommands () {
     customCommands.value = await loadCustomCommands()
   }
 
-  onMounted(async () => {
-    customCommands.value = await loadCustomCommands()
-    chrome.storage.onChanged.addListener(handler)
-  })
-
-  onUnmounted(() => {
-    chrome.storage.onChanged.removeListener(handler)
-  })
+  onMounted(handler)
+  useChromeStorageListener(handler)
 
   async function resetToDefaultCustomCommands () {
     await saveCustomCommands(generateDefaultCustomCommands())
