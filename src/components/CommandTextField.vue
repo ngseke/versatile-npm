@@ -69,6 +69,7 @@ defineExpose({ activate })
   left: 0
   z-index: 1
   pointer-events: none
+  user-select: none
 
 .transparent
   :deep(input)

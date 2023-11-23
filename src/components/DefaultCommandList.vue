@@ -12,12 +12,12 @@ const command = 'npm i <package>'
     </VListSubheader>
 
     <VListItem>
-      <template #prepend>
-        <VIcon class="" size="small">fa-solid fa-angle-right</VIcon>
-      </template>
-      <span class="mono font-weight-medium text-subtitle-1">
-        <CustomCommandChunks :modelValue="command" />
-      </span>
+      <div class="d-flex align-center">
+        <VIcon class="text-medium-emphasis mr-3" size="small">fa-solid fa-angle-right</VIcon>
+        <span class="mono font-weight-medium text-subtitle-1">
+          <CustomCommandChunks :modelValue="command" />
+        </span>
+      </div>
     </VListItem>
   </VList>
 </template>
