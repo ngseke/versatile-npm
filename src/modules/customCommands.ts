@@ -34,19 +34,41 @@ export interface CustomCommandChunk {
   value: string
 }
 
-export function parseCustomCommand (command: string): CustomCommandChunk[] {
-  const chunks = command.split(' ')
-  return chunks.map((value) => {
-    const getChunk = (type: CustomCommandChunk['type']) => (
-      { id: nanoid(), type, value }
-    )
+export function parseCustomCommand (command: string) {
+  const chunks: CustomCommandChunk[] = []
+  let currentText = ''
 
-    const isPackageManager = packageManagers.has(value)
-    if (isPackageManager) return getChunk('packageManager')
+  const regex = new RegExp(`(${packageNamePlaceholder}|\\s+)`)
 
-    const isPackageNamePlaceholder = value === packageNamePlaceholder
-    if (isPackageNamePlaceholder) return getChunk('packageNamePlaceholder')
+  command.split(regex).forEach(part => {
+    if (part === packageNamePlaceholder) {
+      if (currentText) {
+        chunks.push({ id: nanoid(), type: 'text', value: currentText })
+        currentText = ''
+      }
+      chunks.push({ id: nanoid(), type: 'packageNamePlaceholder', value: part })
+      return
+    }
 
-    return getChunk('text')
+    if (/\s+/.test(part)) {
+      currentText += part
+      return
+    }
+
+    if (packageManagers.has(part.trim())) {
+      if (currentText) {
+        chunks.push({ id: nanoid(), type: 'text', value: currentText })
+        currentText = ''
+      }
+      chunks.push({ id: nanoid(), type: 'packageManager', value: part })
+    } else {
+      currentText += part
+    }
   })
+
+  if (currentText) {
+    chunks.push({ id: nanoid(), type: 'text', value: currentText })
+  }
+
+  return chunks
 }

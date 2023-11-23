@@ -9,8 +9,6 @@ const props = defineProps<{
 }>()
 
 const chunks = computed(() => parseCustomCommand(props.modelValue))
-
-const space = ' '
 </script>
 
 <template>
@@ -27,12 +25,13 @@ const space = ' '
       v-else-if="chunk.type === 'packageNamePlaceholder'"
       class="font-weight-bold gradient"
     >{{ chunk.value }}</span>
-
-    <span>{{ space }}</span>
   </template>
 </template>
 
 <style lang="sass" scoped>
+span
+  white-space: pre
+
 .gradient
   -webkit-background-clip: text
   -webkit-text-fill-color: transparent
