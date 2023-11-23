@@ -6,6 +6,7 @@
   A browser extension that lets you customize install commands on Npm.
 </p>
 
+
 <p align=center>
   <a href="https://github.com/ngseke/versatile-npm/actions">
     <img src="https://github.com/ngseke/versatile-npm/actions/workflows/release.yml/badge.svg" />
@@ -13,14 +14,26 @@
   <a href="https://github.com/ngseke/versatile-npm/releases">
     <img src="https://img.shields.io/github/v/release/ngseke/versatile-npm?sort=semver" />
   </a>
+  <a href="https://chromewebstore.google.com/detail/versatile-npm/jahejogdoffpehfhkhbpjblnlhghjnje">
+    <img src="https://img.shields.io/chrome-web-store/v/jahejogdoffpehfhkhbpjblnlhghjnje" />
+  </a>
+  <a href="https://chromewebstore.google.com/detail/versatile-npm/jahejogdoffpehfhkhbpjblnlhghjnje">
+    <img src="https://img.shields.io/chrome-web-store/users/jahejogdoffpehfhkhbpjblnlhghjnje" />
+  </a>
 </p>
 
 # Versatile Npm
 
+### Download from Chrome Web Store
+
+<a href="https://chromewebstore.google.com/detail/versatile-npm/jahejogdoffpehfhkhbpjblnlhghjnje">
+  <img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png" />
+</a>
+
 ## Features
 
-<img src="illustration/1x/screenshot-1.png" alt="Versatile Npm UI" />
-<img src="illustration/1x/screenshot-2.png" alt="Demonstration on Npm" />
+<img src="illustration/1x/screenshot-1.png" alt="Define Your Own Install Command With Full Customizability & Flexibility!" />
+<img src="illustration/1x/screenshot-2.png" alt="Experience the Best Npm Command Extension Like Never Before!" />
 
 ## Installation
 
