@@ -19,10 +19,6 @@ export function getNpmPackageName () {
   return name ?? null
 }
 
-export function selectNotificationContainer () {
-  return $('.list.ma0.pa0.tr.z-999 > .list.ma0.pa0.tr.z-999')
-}
-
 export function selectSidebarH3 () {
   return $('h3.f5.mt2.pt2.mb0')
 }

@@ -33,7 +33,21 @@ export function renderCustomCommand (
   const $button = $component.querySelector('button')
 
   if (!$button) throw new Error('Failed to select `button` in original component!')
-  $button.addEventListener('click', events.onClickCopy)
+
+  function playAnimation () {
+    const className = style.play
+    $component.classList.add(className)
+    const onAnimationEnd = () => {
+      $component.classList.remove(className)
+      $component.removeEventListener('animationend', onAnimationEnd)
+    }
+    $component.addEventListener('animationend', onAnimationEnd)
+  }
+
+  $button.addEventListener('click', () => {
+    events.onClickCopy()
+    playAnimation()
+  })
 
   $component.classList.add(style['code-component'])
 

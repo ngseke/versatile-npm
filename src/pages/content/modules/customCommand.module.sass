@@ -1,8 +1,33 @@
+.emphasis
+  font-weight: bold
+
 .code-component
   margin: .5rem 0 !important
   code::after
     content: ' '
     white-space: pre
+  p
+    position: relative
+    &::after
+      content: ''
+      position: absolute
+      z-index: -1
+      left: 0
+      top: 0
+      width: 200%
+      height: 100%
+      mix-blend-mode: hard-light
+      background-image: linear-gradient(120deg, transparent .5%, #e02aff, #c12127, #ff4b01,#fb8817, transparent 99.5%)
+      transition: all .2s
+      transform: translateX(-100%)
 
-.emphasis
-  font-weight: bold
+.play
+  p::after
+    @keyframes slide
+      from
+        transform: translateX(-100%)
+        opacity: .5
+      to
+        transform: translateX(100%)
+        opacity: .8
+    animation: slide 1.5s

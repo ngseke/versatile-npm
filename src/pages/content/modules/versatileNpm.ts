@@ -1,7 +1,6 @@
 import { getNpmPackageName } from './npmPage'
 import { generateCustomCommand } from '../../../modules/customCommands'
 import { renderCustomCommand } from './customCommand'
-import { showNotification } from './notification'
 import { renderCustomCommandSection } from './customCommandSection'
 import { $$ } from './dom'
 
@@ -23,7 +22,6 @@ export function renderVersatileNpm (customCommandTemplates: string[]) {
       const $customCommand = renderCustomCommand(command, {
         onClickCopy () {
           navigator.clipboard.writeText(command)
-          showNotification()
         },
       })
       $section.append($customCommand)
