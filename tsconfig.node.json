@@ -4,10 +4,14 @@
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true
   },
   "include": [
+    ".eslintrc.cjs",
     "vite.config.ts",
-    "package.json"
+    "manifest.config.ts",
+    "package.json",
+    "scripts/**/*.js"
   ]
 }
