@@ -38,7 +38,7 @@ export function renderCustomCommand (
   if (!$button) throw new Error('Failed to select `button` in original component!')
   $button.addEventListener('click', events.onClickCopy)
 
-  $component.classList.add(style.command)
+  $component.classList.add(style['code-component'])
 
   return $component
 }
