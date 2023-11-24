@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, computed, nextTick, ref } from 'vue'
+import { watch, computed, nextTick } from 'vue'
 import { VCard, VList, VListItem, VListItemAction, VListSubheader } from 'vuetify/components'
 import Draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
@@ -13,6 +13,7 @@ import { useCustomCommandSuggestions } from '../composables/useCustomCommandSugg
 import { isEqual } from '../modules/isEqual'
 import CommandTextField from './CommandTextField.vue'
 import DefaultCommandList from './DefaultCommandList.vue'
+import { useTextFieldRef } from '../composables/useTextFieldRef'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
 const { customCommandDrafts: drafts } = useCustomCommandsDraft()
@@ -52,15 +53,7 @@ function add (value: string) {
   drafts.value?.push({ id: nanoid(), value })
 }
 
-const textFieldRefs = ref<Array<InstanceType<typeof CommandTextField>>>([])
-function setTextFieldRef (el: any, index: number) {
-  textFieldRefs.value[index] = el
-}
-
-function activateLastTextField () {
-  textFieldRefs.value.filter(Boolean).at(-1)
-    ?.activate()
-}
+const { setTextFieldRef, activateLastTextField } = useTextFieldRef()
 
 async function handleClickAdd () {
   add('<package>')
