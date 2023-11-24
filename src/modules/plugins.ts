@@ -6,7 +6,7 @@ import 'vuetify/styles'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '../assets/styles/font.sass'
 
-const vuetify = createVuetify({
+export const vuetify = createVuetify({
   theme: {
     defaultTheme: 'dark',
   },
