@@ -5,7 +5,7 @@ import AppBarMenu from './AppBarMenu.vue'
 
 <template>
   <VAppBar density="comfortable" rounded>
-    <VAppBarTitle class="mono font-weight-bold">
+    <VAppBarTitle class="mono font-weight-bold" tag="h1">
       Versatile
       <span class="text-red font-weight-black">Npm</span>
     </VAppBarTitle>
