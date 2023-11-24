@@ -104,7 +104,7 @@ const isExceeded = computed(
     </TransitionGroup>
 
     <CustomCommandsListItemLayout>
-      <AddButton @click="handleClickAdd" />
+      <AddButton :disabled="isExceeded" @click="handleClickAdd" />
     </CustomCommandsListItemLayout>
 
     <VListItem
