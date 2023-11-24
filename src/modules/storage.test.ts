@@ -1,19 +1,7 @@
 import { beforeEach, expect, test, vi } from 'vitest'
 import { loadCustomCommands, loadIsEnabled, saveCustomCommands, saveIsEnabled } from './storage'
 import { CUSTOM_COMMANDS_STORAGE_KEY, ENABLED_STORAGE_KEY } from './constants'
-
-function mockChrome () {
-  const mockedChrome = {
-    storage: {
-      sync: {
-        get: vi.fn().mockResolvedValue({}),
-        set: vi.fn(),
-      },
-    },
-  }
-  vi.stubGlobal('chrome', mockedChrome)
-  return mockedChrome
-}
+import { mockChrome } from '../../__tests__/chrome'
 
 beforeEach(() => {
   // To ensure that Chrome is mocked in every test
