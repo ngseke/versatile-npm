@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { watch, computed, nextTick } from 'vue'
-import { VList, VListItem, VListItemAction, VListSubheader } from 'vuetify/components'
+import { VList, VListItem, VListSubheader } from 'vuetify/components'
 import Draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
 import { useCustomCommands } from '../composables/useCustomCommands'
 import { useCustomCommandsDraft } from '../composables/useCustomCommandsDraft'
-import RemoveButton from './RemoveButton.vue'
-import DragHandle from './DragHandle.vue'
-import AddButton from './AddButton.vue'
 import SuggestionChips from './SuggestionChips.vue'
 import { useCustomCommandSuggestions } from '../composables/useCustomCommandSuggestions'
 import { isEqual } from '../modules/isEqual'
 import CommandTextField from './CommandTextField.vue'
 import { useTextFieldRef } from '../composables/useTextFieldRef'
+import CustomCommandsListItemLayout from './CustomCommandsListItemLayout.vue'
+import AddButton from './AddButton.vue'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
 const { customCommandDrafts: drafts } = useCustomCommandsDraft()
@@ -82,7 +81,6 @@ const isExceeded = computed(
   >
     <VListSubheader>
       Custom Commands
-      <AddButton :disabled="isExceeded" @click="handleClickAdd" />
     </VListSubheader>
 
     <TransitionGroup name="list">
@@ -92,30 +90,22 @@ const isExceeded = computed(
         v-bind="dragOptions"
       >
         <template #item="{ element, index }">
-          <VListItem color="transparent" tabindex="0">
-            <template #prepend>
-              <VListItemAction>
-                <DragHandle class="handle" />
-              </VListItemAction>
-            </template>
+          <CustomCommandsListItemLayout
+            handleClassName="handle"
+            @remove="remove(element.id)"
+          >
             <CommandTextField
               :ref="el => setTextFieldRef(el, index)"
               v-model="element.value"
             />
-
-            <template #append>
-              <RemoveButton @click="remove(element.id)" />
-            </template>
-          </VListItem>
+          </CustomCommandsListItemLayout>
         </template>
       </Draggable>
     </TransitionGroup>
 
-    <VListItem v-if="!drafts?.length" disabled>
-      <span>
-        No custom commands
-      </span>
-    </VListItem>
+    <CustomCommandsListItemLayout>
+      <AddButton @click="handleClickAdd" />
+    </CustomCommandsListItemLayout>
 
     <VListItem
       v-if="unusedCustomCommandSuggestions.length "

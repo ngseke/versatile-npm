@@ -3,5 +3,12 @@ import { VBtn } from 'vuetify/components'
 </script>
 
 <template>
-  <VBtn icon="fa-solid fa-plus" size="x-small" variant="plain" />
+  <VBtn
+    block
+    prependIcon="fa-solid fa-plus"
+    rounded="pill"
+    variant="plain"
+  >
+    Add Command
+  </VBtn>
 </template>
