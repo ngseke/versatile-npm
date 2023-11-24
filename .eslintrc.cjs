@@ -28,10 +28,8 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     extraFileExtensions: ['.vue'],
   },
-  ignorePatterns: ['dist'],
-  plugins: [
-    'vue',
-  ],
+  ignorePatterns: ['dist', 'coverage'],
+  plugins: ['vue'],
   rules: {
     '@typescript-eslint/comma-dangle': ['error', {
       arrays: 'always-multiline',

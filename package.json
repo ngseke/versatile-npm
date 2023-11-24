@@ -14,7 +14,8 @@
     "lint": "npx eslint . --ext .ts,.js,.cjs,.vue",
     "lint:fix": "npx eslint --fix . --ext .ts,.js,.cjs,.vue",
     "bump": "node ./scripts/bump.js",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "engines": {
     "node": ">=18",
@@ -35,6 +36,7 @@
     "@types/chrome": "^0.0.252",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@vitejs/plugin-vue": "^4.5.0",
+    "@vitest/coverage-v8": "^0.34.6",
     "@vue/test-utils": "^2.4.2",
     "deepmerge": "^4.3.1",
     "eslint": "^8.0.1",
