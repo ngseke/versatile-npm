@@ -15,7 +15,7 @@ defineEmits<{ click: [item: Item] }>()
     <VChip
       v-for="item in list"
       :key="String(item.value)"
-      class="mr-2"
+      class="mr-2 mb-2"
       density="comfortable"
       :disabled="disabled"
       @click="$emit('click', item)"
