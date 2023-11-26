@@ -38,6 +38,7 @@ watch(() => selectedItem.value.includes(isEnabledSymbol), (value) => {
               color="red"
               density="comfortable"
               hideDetails
+              :loading="isEnabled == null"
               :modelValue="isActive"
             />
           </VListItemAction>
