@@ -83,6 +83,17 @@ const isExceeded = computed(
       Custom Commands
     </VListSubheader>
 
+    <VListItem
+      v-if="unusedCustomCommandSuggestions.length "
+      color="transparent"
+    >
+      <SuggestionChips
+        :disabled="isExceeded"
+        :list="unusedCustomCommandSuggestions"
+        @click="(value) => add(value.value)"
+      />
+    </VListItem>
+
     <TransitionGroup name="list">
       <Draggable
         v-if="drafts"
@@ -106,18 +117,6 @@ const isExceeded = computed(
     <CustomCommandsListItemLayout>
       <AddButton :disabled="isExceeded" @click="handleClickAdd" />
     </CustomCommandsListItemLayout>
-
-    <VListItem
-      v-if="unusedCustomCommandSuggestions.length "
-      color="transparent"
-      tabindex="0"
-    >
-      <SuggestionChips
-        :disabled="isExceeded"
-        :list="unusedCustomCommandSuggestions"
-        @click="(value) => add(value.value)"
-      />
-    </VListItem>
   </VList>
 </template>
 

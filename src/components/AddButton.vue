@@ -5,10 +5,9 @@ import { VBtn } from 'vuetify/components'
 <template>
   <VBtn
     block
-    prependIcon="fa-solid fa-plus"
+    icon="fa-solid fa-plus"
     rounded="pill"
-    variant="plain"
-  >
-    Add Command
-  </VBtn>
+    size="small"
+    variant="tonal"
+  />
 </template>

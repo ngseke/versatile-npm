@@ -11,7 +11,7 @@ const command = 'npm i <package>'
       Default Command
     </VListSubheader>
 
-    <VListItem>
+    <VListItem density="compact">
       <div class="d-flex align-center">
         <VIcon class="text-medium-emphasis mr-3" size="small">fa-solid fa-angle-right</VIcon>
         <span class="mono font-weight-medium text-subtitle-1">

@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="ValueType">
-import { VChip, VIcon } from 'vuetify/components'
+import { VChip } from 'vuetify/components'
 
 interface Item { value: ValueType, label: string }
 
@@ -11,16 +11,15 @@ defineEmits<{ click: [item: Item] }>()
 </script>
 
 <template>
-  <TransitionGroup name="chip" tag="div">
+  <TransitionGroup class="position-relative" name="chip" tag="div">
     <VChip
       v-for="item in list"
       :key="String(item.value)"
-      class="mr-2 mb-2"
-      density="comfortable"
+      class="mr-1 mb-1"
       :disabled="disabled"
+      size="small"
       @click="$emit('click', item)"
     >
-      <VIcon color="amber" size="x-small" start>fa-solid fa-lightbulb</VIcon>
       <span class="mono font-weight-medium">
         {{ item.label }}
       </span>
