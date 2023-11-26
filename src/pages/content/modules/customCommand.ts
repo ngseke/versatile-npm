@@ -34,8 +34,11 @@ export function renderCustomCommand (
 
   if (!$button) throw new Error('Failed to select `button` in original component!')
 
-  function playAnimation () {
+  const nextTick = async () => await new Promise((resolve) => setTimeout(resolve, 0))
+  async function playAnimation () {
     const className = style.play
+    $component.classList.remove(className)
+    await nextTick()
     $component.classList.add(className)
     const onAnimationEnd = () => {
       $component.classList.remove(className)
