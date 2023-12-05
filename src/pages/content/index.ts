@@ -1,24 +1,19 @@
 import { loadCustomCommands, loadIsEnabled } from '../../modules/storage'
-import { selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
-import { renderVersatileNpm, selectAllRenderedVersatileNpm } from './modules/versatileNpm'
+import { getNpmPackageName, selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
+import { getRenderedVersatileNpmPackageName, renderVersatileNpm, selectAllRenderedVersatileNpm } from './modules/versatileNpm'
 
 function checkShouldRender () {
-  try {
-    const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
-    const hasWeeklyDownloadsSparkLine = Boolean(selectWeeklyDownloadsSparkLine())
-    const isRendered = Boolean(selectAllRenderedVersatileNpm().length)
+  const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
+  const hasWeeklyDownloadsSparkLine = Boolean(selectWeeklyDownloadsSparkLine())
+  const isRendered = getRenderedVersatileNpmPackageName() === getNpmPackageName()
 
-    const shouldRender = [
-      hasOriginalComponent,
-      hasWeeklyDownloadsSparkLine,
-      !isRendered,
-    ].every(Boolean)
+  const shouldRender = [
+    hasOriginalComponent,
+    hasWeeklyDownloadsSparkLine,
+    !isRendered,
+  ].every(Boolean)
 
-    if (!shouldRender) return false
-  } catch (err) {
-    return false
-  }
-  return true
+  return shouldRender
 }
 
 function destroyRenderedElements () {

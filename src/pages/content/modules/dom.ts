@@ -6,13 +6,12 @@ export function htmlToElement (html: string) {
 
 export function $ (selector: string) {
   const element = document.querySelector(selector)
-  if (!element) throw new Error(`Failed to select \`${selector}\``)
 
-  return element
+  return element as HTMLElement | null
 }
 
 export function $$ (selector: string) {
   const elements = document.querySelectorAll(selector)
 
-  return [...elements]
+  return [...elements] as HTMLElement[]
 }

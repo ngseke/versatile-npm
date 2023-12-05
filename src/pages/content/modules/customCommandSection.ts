@@ -25,7 +25,9 @@ export function renderOptionsPageButton () {
 export function renderCustomCommandSection () {
   const $section = document.createElement('div')
 
-  const $title = selectSidebarH3Title().cloneNode() as Element
+  const $title = selectSidebarH3Title()?.cloneNode() as HTMLElement | null
+  if (!$title) throw new Error('Failed to clone sidebar h3 title!')
+
   $title.textContent = 'Versatile Npm'
   $title.classList.add(style.title)
 
