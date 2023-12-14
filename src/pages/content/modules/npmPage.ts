@@ -22,7 +22,3 @@ export function getNpmPackageName () {
 export function selectSidebarH3 () {
   return $('h3.f5.mt2.pt2.mb0')
 }
-
-export function selectWeeklyDownloadsSparkLine () {
-  return $('.sparkline--fill')
-}

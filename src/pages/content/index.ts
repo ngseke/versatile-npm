@@ -1,15 +1,13 @@
 import { loadCustomCommands, loadIsEnabled } from '../../modules/storage'
-import { getNpmPackageName, selectNpmCommandOriginalComponent, selectWeeklyDownloadsSparkLine } from './modules/npmPage'
+import { getNpmPackageName, selectNpmCommandOriginalComponent } from './modules/npmPage'
 import { getRenderedVersatileNpmPackageName, renderVersatileNpm, selectAllRenderedVersatileNpm } from './modules/versatileNpm'
 
 function checkShouldRender () {
   const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
-  const hasWeeklyDownloadsSparkLine = Boolean(selectWeeklyDownloadsSparkLine())
   const isRendered = getRenderedVersatileNpmPackageName() === getNpmPackageName()
 
   const shouldRender = [
     hasOriginalComponent,
-    hasWeeklyDownloadsSparkLine,
     !isRendered,
   ].every(Boolean)
 

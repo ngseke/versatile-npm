@@ -23,7 +23,7 @@ export function renderOptionsPageButton () {
 }
 
 export function renderCustomCommandSection () {
-  const $section = document.createElement('div')
+  const $section = document.createElement('section')
 
   const $title = selectSidebarH3Title()?.cloneNode() as HTMLElement | null
   if (!$title) throw new Error('Failed to clone sidebar h3 title!')
