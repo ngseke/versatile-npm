@@ -1,16 +1,35 @@
-import { ENABLED_STORAGE_KEY, CUSTOM_COMMANDS_STORAGE_KEY } from './constants'
 import { generateDefaultCustomCommands } from './customCommands'
 
-async function getSyncStorage <T> (key: string, defaultValue: T): Promise<T> {
-  return (await chrome.storage.sync.get(key))[key] ?? defaultValue
+export const ENABLED_STORAGE_KEY = 'enabled'
+export const CUSTOM_COMMANDS_STORAGE_KEY = 'customCommands'
+
+export interface SyncStorageSchema {
+  [ENABLED_STORAGE_KEY]: boolean
+  [CUSTOM_COMMANDS_STORAGE_KEY]: string[]
 }
 
-async function setSyncStorage <T> (key: string, value: T) {
+export const syncStorageDefaultValues: SyncStorageSchema = {
+  [ENABLED_STORAGE_KEY]: true,
+  [CUSTOM_COMMANDS_STORAGE_KEY]: generateDefaultCustomCommands(),
+}
+
+export type SyncStorageKey = keyof SyncStorageSchema
+
+export async function getSyncStorage <
+  Key extends SyncStorageKey
+> (key: Key): Promise<SyncStorageSchema[Key]> {
+  return (await chrome.storage.sync.get(key))[key] ??
+    structuredClone(syncStorageDefaultValues[key])
+}
+
+export async function setSyncStorage<
+  Key extends SyncStorageKey
+> (key: Key, value: SyncStorageSchema[Key]) {
   await chrome.storage.sync.set({ [key]: value })
 }
 
 export const loadIsEnabled = async () => {
-  return await getSyncStorage(ENABLED_STORAGE_KEY, true)
+  return await getSyncStorage(ENABLED_STORAGE_KEY)
 }
 
 export const saveIsEnabled = async (isEnabled: boolean) => {
@@ -18,10 +37,7 @@ export const saveIsEnabled = async (isEnabled: boolean) => {
 }
 
 export const loadCustomCommands = async () => {
-  return await getSyncStorage(
-    CUSTOM_COMMANDS_STORAGE_KEY,
-    generateDefaultCustomCommands()
-  )
+  return await getSyncStorage(CUSTOM_COMMANDS_STORAGE_KEY)
 }
 
 export const saveCustomCommands = async (customCommands: string[]) => {
