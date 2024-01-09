@@ -6,10 +6,7 @@ function checkShouldRender () {
   const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
   const isRendered = getRenderedVersatileNpmPackageName() === getNpmPackageName()
 
-  const shouldRender = [
-    hasOriginalComponent,
-    !isRendered,
-  ].every(Boolean)
+  const shouldRender = hasOriginalComponent && !isRendered
 
   return shouldRender
 }
@@ -19,7 +16,7 @@ function destroyRenderedElements () {
     .forEach($element => { $element.remove() })
 }
 
-async function tryRender (force = false) {
+async function tryRender ({ force }: { force?: boolean } = {}) {
   const commands = await loadCustomCommands()
   const isEnabled = await loadIsEnabled()
 
@@ -31,8 +28,6 @@ async function tryRender (force = false) {
   const $versatileNpm = renderVersatileNpm(commands)
   const $originalComponent = selectNpmCommandOriginalComponent()
   $originalComponent.after($versatileNpm)
-
-  return true
 }
 
 function startObserverAndListener () {
@@ -41,13 +36,12 @@ function startObserverAndListener () {
 
   // 2. try to render when DOM changes
   new MutationObserver(async () => await tryRender())
-    .observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-    })
+    .observe(document.documentElement, { childList: true, subtree: true })
 
   // 3. try to render when options change
-  chrome.storage.onChanged.addListener(async () => await tryRender(true))
+  chrome.storage.onChanged.addListener(
+    async () => await tryRender({ force: true })
+  )
 }
 
 startObserverAndListener()
