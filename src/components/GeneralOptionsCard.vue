@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { VCard, VList, VListItem, VListItemAction, VListItemTitle, VListSubheader, VSwitch } from 'vuetify/components'
+import { VCard, VList, VListItem, VListItemAction, VListItemTitle, VSwitch } from 'vuetify/components'
 import { useIsEnabled } from '../composables/useIsEnabled'
 
 const isEnabledSymbol = Symbol('isEnabled')
@@ -27,10 +27,6 @@ watch(() => selectedItem.value.includes(isEnabledSymbol), (value) => {
       lines="one"
       variant="elevated"
     >
-      <VListSubheader>
-        Options
-      </VListSubheader>
-
       <VListItem :elevation="0" :value="isEnabledSymbol">
         <template #prepend="{ isActive }">
           <VListItemAction start>
