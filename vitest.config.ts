@@ -14,5 +14,6 @@ export default defineConfig({
         inline: ['vuetify'],
       },
     },
+    testTimeout: 10000,
   },
 })

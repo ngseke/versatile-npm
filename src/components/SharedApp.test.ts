@@ -1,4 +1,3 @@
-import { expect, test } from 'vitest'
 import { flushPromises } from '@vue/test-utils'
 
 import { mockChrome } from '../../__tests__/chrome'

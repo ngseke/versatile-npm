@@ -1,4 +1,3 @@
-import { expect, test } from 'vitest'
 import { generateCustomCommand, parseCustomCommand, packageNamePlaceholder as placeholder } from './customCommands'
 
 test('generateCustomCommand', () => {

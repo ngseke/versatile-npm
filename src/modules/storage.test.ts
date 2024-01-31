@@ -1,4 +1,3 @@
-import { beforeEach, expect, test, vi } from 'vitest'
 import { CUSTOM_COMMANDS_STORAGE_KEY, ENABLED_STORAGE_KEY, loadCustomCommands, loadIsEnabled, saveCustomCommands, saveIsEnabled } from './storage'
 import { mockChrome } from '../../__tests__/chrome'
 

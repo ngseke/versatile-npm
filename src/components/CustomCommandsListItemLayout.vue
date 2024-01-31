@@ -10,23 +10,26 @@ defineEmits<{ remove: [] }>()
 <template>
   <VListItem color="transparent" tabindex="0">
     <template #prepend>
-      <VListItemAction>
-        <DragHandle :class="[handleClassName, { hidden: !handleClassName }]" />
+      <VListItemAction v-if="handleClassName">
+        <DragHandle :class="handleClassName" />
       </VListItemAction>
+
+      <div v-else class="spacer" />
     </template>
 
     <slot />
 
     <template #append>
       <RemoveButton
-        :class="{ hidden: !$props.onRemove }"
+        v-if="$props.onRemove"
         @click="$emit('remove')"
       />
+      <div v-else class="spacer" />
     </template>
   </VListItem>
 </template>
 
 <style lang="sass" scoped>
-.hidden
-  visibility: hidden
+.spacer
+  width: 40px
 </style>

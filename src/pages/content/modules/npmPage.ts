@@ -3,6 +3,7 @@ import { $ } from './dom'
 export function selectNpmCommandInnerCode () {
   return $('p.flex-auto.truncate.db.ma0 > code')
 }
+
 export function selectNpmCommandOriginalComponent () {
   const $element = selectNpmCommandInnerCode()?.parentElement?.parentElement
   if (!$element) throw new Error('Failed to select npm command original component')
