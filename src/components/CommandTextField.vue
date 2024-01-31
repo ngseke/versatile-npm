@@ -5,9 +5,10 @@ import CustomCommandChunks from './CustomCommandChunks.vue'
 import { TEST_IDS } from '../modules/constants'
 
 defineProps<{ modelValue: string }>()
-defineEmits<{
+const emit = defineEmits<{
   'update:modelValue': [value: string]
   'remove': []
+  'blur': []
 }>()
 
 const isActive = ref(false)
@@ -22,6 +23,7 @@ async function activate () {
 
 function handleUpdateFocused (isFocused: boolean) {
   isActive.value = isFocused
+  if (!isFocused) emit('blur')
 }
 
 function handleKeydown () {

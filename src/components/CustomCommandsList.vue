@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, computed, nextTick } from 'vue'
+import { watch, computed, nextTick, unref } from 'vue'
 import { VList, VListItem, VListSubheader } from 'vuetify/components'
 import Draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
@@ -7,12 +7,13 @@ import { useCustomCommands } from '../composables/useCustomCommands'
 import { useCustomCommandsDraft } from '../composables/useCustomCommandsDraft'
 import SuggestionChips from './SuggestionChips.vue'
 import { useCustomCommandSuggestions } from '../composables/useCustomCommandSuggestions'
-import { isEqual } from '../modules/isEqual'
 import CommandTextField from './CommandTextField.vue'
 import { useTextFieldRef } from '../composables/useTextFieldRef'
 import CustomCommandsListItemLayout from './CustomCommandsListItemLayout.vue'
 import AddButton from './AddButton.vue'
-import { TEST_IDS } from '../modules/constants'
+import { DEBOUNCED_SAVE_DELAY, TEST_IDS } from '../modules/constants'
+import { useDebounceFn } from '@vueuse/core'
+import { cloneDeep, isEqual } from 'lodash-es'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
 const { customCommandDrafts: drafts } = useCustomCommandsDraft()
@@ -30,8 +31,6 @@ watch(customCommands, (customCommands) => {
   setDraftsFromCustomCommands(customCommands)
 })
 
-watch(drafts, save, { deep: true })
-
 function save () {
   if (!drafts.value) return
   const newCommands = drafts.value?.map(({ value }) => value)
@@ -41,6 +40,16 @@ function save () {
 
   saveCustomCommands(filteredCommand)
 }
+
+const debouncedSave = useDebounceFn(save, DEBOUNCED_SAVE_DELAY)
+
+watch(() => cloneDeep(unref(drafts)), (newDrafts, oldDrafts) => {
+  if (newDrafts?.length !== oldDrafts?.length) {
+    save()
+  } else {
+    debouncedSave()
+  }
+}, { deep: true })
 
 function remove (id: string) {
   if (!drafts.value) return
@@ -101,6 +110,7 @@ const isExceeded = computed(
         v-if="drafts"
         v-model="drafts"
         v-bind="dragOptions"
+        :ondragend="save"
       >
         <template #item="{ element, index }">
           <CustomCommandsListItemLayout
@@ -110,6 +120,7 @@ const isExceeded = computed(
             <CommandTextField
               :ref="el => setTextFieldRef(el, index)"
               v-model="element.value"
+              @blur="save"
             />
           </CustomCommandsListItemLayout>
         </template>

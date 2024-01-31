@@ -12,3 +12,5 @@ export const TEST_IDS = {
   addButton: 'addButton',
   commandTextField: 'commandTextField',
 } as const
+
+export const DEBOUNCED_SAVE_DELAY = 300
