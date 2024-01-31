@@ -4,7 +4,7 @@ import { renderCustomCommand } from './customCommand'
 import { renderCustomCommandSection } from './customCommandSection'
 import { $, $$ } from './dom'
 
-const DATASET_KEY = 'versatilenpm'
+export const DATASET_KEY = 'versatilenpm'
 
 export function selectRenderedVersatileNpm () {
   return $(`[data-${DATASET_KEY}]`)
