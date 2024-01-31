@@ -2,6 +2,7 @@
 import { VTextField } from 'vuetify/components'
 import { ref, nextTick } from 'vue'
 import CustomCommandChunks from './CustomCommandChunks.vue'
+import { TEST_IDS } from '../modules/constants'
 
 defineProps<{ modelValue: string }>()
 defineEmits<{
@@ -45,6 +46,7 @@ defineExpose({ activate })
       ref="textField"
       class="mono"
       :class="{ transparent: !isActive }"
+      :data-testid="TEST_IDS.commandTextField"
       density="compact"
       flat
       hideDetails

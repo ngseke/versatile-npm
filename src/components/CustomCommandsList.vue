@@ -12,6 +12,7 @@ import CommandTextField from './CommandTextField.vue'
 import { useTextFieldRef } from '../composables/useTextFieldRef'
 import CustomCommandsListItemLayout from './CustomCommandsListItemLayout.vue'
 import AddButton from './AddButton.vue'
+import { TEST_IDS } from '../modules/constants'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
 const { customCommandDrafts: drafts } = useCustomCommandsDraft()
@@ -76,6 +77,7 @@ const isExceeded = computed(
 <template>
   <VList
     v-if="drafts"
+    :data-testid="TEST_IDS.customCommandsSection"
     density="compact"
     lines="one"
   >
