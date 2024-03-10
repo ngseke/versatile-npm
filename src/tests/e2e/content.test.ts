@@ -210,6 +210,7 @@ describe('Rendering on Npm package page', () => {
       )
       await searchResultItem?.click()
       await npmPage.waitForNavigation()
+      await npmPage.waitForNetworkIdle()
     }
 
     const reactPackageName = 'react'
