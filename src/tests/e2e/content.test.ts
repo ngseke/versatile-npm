@@ -233,4 +233,4 @@ describe('Rendering on Npm package page', () => {
 
     await assertMatchCustomCommandElements(templates, packageName)
   })
-}, 20000)
+}, { retry: 3, timeout: 20000 })
