@@ -136,7 +136,4 @@ const isExceeded = computed(
 <style lang="sass" scoped>
 .ghost
   opacity: 0.5
-
-.handle
-  cursor: move
 </style>
