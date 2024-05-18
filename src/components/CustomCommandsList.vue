@@ -16,7 +16,7 @@ import { useDebounceFn } from '@vueuse/core'
 import { cloneDeep, isEqual } from 'lodash-es'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
-const { customCommandDrafts: drafts } = useCustomCommandsDraft()
+const { drafts, add, remove } = useCustomCommandsDraft()
 
 function setDraftsFromCustomCommands (commands: string[]) {
   drafts.value = commands.map((value) => ({ id: nanoid(), value }))
@@ -36,9 +36,7 @@ function save () {
   const newCommands = drafts.value?.map(({ value }) => value)
   if (isEqual(newCommands, customCommands.value)) return
 
-  const filteredCommand = newCommands
-
-  saveCustomCommands(filteredCommand)
+  saveCustomCommands(newCommands)
 }
 
 const debouncedSave = useDebounceFn(save, DEBOUNCED_SAVE_DELAY)
@@ -50,16 +48,6 @@ watch(() => cloneDeep(unref(drafts)), (newDrafts, oldDrafts) => {
     debouncedSave()
   }
 }, { deep: true })
-
-function remove (id: string) {
-  if (!drafts.value) return
-  drafts.value = drafts.value
-    .filter(item => item.id !== id)
-}
-
-function add (value: string) {
-  drafts.value?.push({ id: nanoid(), value })
-}
 
 const { setTextFieldRef, activateLastTextField } = useTextFieldRef()
 

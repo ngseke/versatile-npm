@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
 export interface CustomCommandDraft {
@@ -6,9 +7,21 @@ export interface CustomCommandDraft {
 }
 
 export function useCustomCommandsDraft () {
-  const customCommandDrafts = ref<CustomCommandDraft[] | null>(null)
+  const drafts = ref<CustomCommandDraft[] | null>(null)
+
+  function add (value: string) {
+    drafts.value?.push({ id: nanoid(), value })
+  }
+
+  function remove (id: string) {
+    if (!drafts.value) return
+    drafts.value = drafts.value
+      .filter(item => item.id !== id)
+  }
 
   return {
-    customCommandDrafts,
+    drafts,
+    add,
+    remove,
   }
 }
