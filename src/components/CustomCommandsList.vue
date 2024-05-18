@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { watch, computed, nextTick, unref } from 'vue'
-import { VList, VListItem, VListSubheader } from 'vuetify/components'
+import { VList, VListSubheader } from 'vuetify/components'
 import Draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
 import { useCustomCommands } from '../composables/useCustomCommands'
 import { useCustomCommandsDraft } from '../composables/useCustomCommandsDraft'
-import SuggestionChips from './SuggestionChips.vue'
-import { useCustomCommandSuggestions } from '../composables/useCustomCommandSuggestions'
 import CommandTextField from './CommandTextField.vue'
 import { useTextFieldRef } from '../composables/useTextFieldRef'
 import CustomCommandsListItemLayout from './CustomCommandsListItemLayout.vue'
@@ -14,6 +12,7 @@ import AddButton from './AddButton.vue'
 import { DEBOUNCED_SAVE_DELAY, TEST_IDS } from '../modules/constants'
 import { useDebounceFn } from '@vueuse/core'
 import { cloneDeep, isEqual } from 'lodash-es'
+import CustomCommandTemplateMenu from './CustomCommandTemplateMenu.vue'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
 const { drafts, add, remove } = useCustomCommandsDraft()
@@ -64,8 +63,6 @@ const dragOptions = {
   itemKey: 'id',
 }
 
-const { unusedCustomCommandSuggestions } = useCustomCommandSuggestions(drafts)
-
 const isExceeded = computed(
   () => (drafts.value?.length ?? Infinity) >= 20
 )
@@ -80,18 +77,8 @@ const isExceeded = computed(
   >
     <VListSubheader>
       Custom Commands
+      <CustomCommandTemplateMenu @add="add" />
     </VListSubheader>
-
-    <VListItem
-      v-if="unusedCustomCommandSuggestions.length "
-      color="transparent"
-    >
-      <SuggestionChips
-        :disabled="isExceeded"
-        :list="unusedCustomCommandSuggestions"
-        @click="(value) => add(value.value)"
-      />
-    </VListItem>
 
     <TransitionGroup name="list">
       <Draggable
