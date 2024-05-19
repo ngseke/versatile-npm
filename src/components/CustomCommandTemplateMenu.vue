@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { VBtn, VList, VListItem, VListItemSubtitle, VListItemTitle, VListSubheader, VMenu } from 'vuetify/components'
 import { templates } from '../modules/templates'
+import CustomCommandChunks from './CustomCommandChunks.vue'
 
 const emit = defineEmits<{
   'add': [value: string]
@@ -34,7 +35,7 @@ const emit = defineEmits<{
           @click="emit('add', item.value)"
         >
           <VListItemTitle class="mono">
-            {{ item.value }}
+            <CustomCommandChunks :modelValue="item.value" />
           </VListItemTitle>
           <VListItemSubtitle>
             {{ item.label }}
