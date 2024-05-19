@@ -203,7 +203,7 @@ describe('Rendering on Npm package page', () => {
     expect(lastPage?.url()).toBe(optionsUrl)
   })
 
-  test('should render Versatile Npm correctly after navigating to another package', async () => {
+  test('should render correctly after navigating to another package', async () => {
     if (!npmPage) throw new Error()
 
     const templates = ['yarn add <package>']
@@ -245,5 +245,37 @@ describe('Rendering on Npm package page', () => {
     await npmPage.waitForNetworkIdle()
 
     await assertMatchCustomCommandElements(templates, packageName)
+  })
+
+  test('should render correctly after navigating to another version', async () => {
+    if (!npmPage) throw new Error()
+
+    const templates = ['pnpm i <package>@<version>']
+    await removeAllAndAddCommands(templates)
+    await npmPage.bringToFront()
+
+    await assertMatchCustomCommandElements(templates, packageName, await getVersion())
+
+    async function navigateToNthVersion (index: number) {
+      if (!npmPage) throw new Error()
+
+      const tab = await npmPage.$('[aria-controls="tabpanel-versions"]')
+      await tab?.click()
+      await npmPage.waitForNavigation()
+      await npmPage.waitForNetworkIdle()
+
+      const links = await npmPage?.$$('[aria-labelledby="package-tab-versions"] li a')
+      const link = links?.[index]
+
+      await link.click()
+      await npmPage.waitForNavigation()
+      await npmPage.waitForNetworkIdle()
+    }
+
+    await navigateToNthVersion(1)
+    await assertMatchCustomCommandElements(templates, packageName, await getVersion())
+
+    await navigateToNthVersion(2)
+    await assertMatchCustomCommandElements(templates, packageName, await getVersion())
   })
 })
