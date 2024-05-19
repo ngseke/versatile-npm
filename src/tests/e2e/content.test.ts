@@ -42,7 +42,8 @@ describe('Rendering on Npm package page', () => {
 
   async function assertMatchCustomCommandElements (
     templates: string[],
-    packageName: string,
+    name: string,
+    version: string = '',
   ) {
     if (!npmPage) throw new Error()
 
@@ -52,7 +53,7 @@ describe('Rendering on Npm package page', () => {
     expect(elements?.length).toBe(templates.length)
 
     const expectedCommands = templates
-      .map((template) => generateCustomCommand(template, packageName))
+      .map((template) => generateCustomCommand(template, name, version))
 
     for (let i = 0; i < elements.length; i++) {
       const item = elements[i]
@@ -115,6 +116,16 @@ describe('Rendering on Npm package page', () => {
     await new Promise(resolve => setTimeout(resolve, DEBOUNCED_SAVE_DELAY))
   }
 
+  async function getVersion () {
+    if (!(browser && npmPage)) throw new Error()
+    const [$element] = await npmPage.$x(`
+      //*[h3[contains(text(), "Version")]]
+      //div[contains(@class, 'flex')]
+      //p
+    `)
+    return await $element?.evaluate(element => (element as HTMLElement)?.innerText)
+  }
+
   test('npm should be alive', async () => {
     if (!npmPage) throw new Error()
 
@@ -136,7 +147,8 @@ describe('Rendering on Npm package page', () => {
     expect(titleText).toBe('Versatile Npm')
 
     const templates = generateDefaultCustomCommands()
-    await assertMatchCustomCommandElements(templates, packageName)
+    const version = await getVersion()
+    await assertMatchCustomCommandElements(templates, packageName, version)
   })
 
   test('should hide Versatile Npm after it is disabled when the npm page is open', async () => {
