@@ -51,7 +51,7 @@ watch(() => cloneDeep(unref(drafts)), (newDrafts, oldDrafts) => {
 const { setTextFieldRef, activateLastTextField } = useTextFieldRef()
 
 async function handleClickAdd () {
-  add('<package>')
+  add('<package>@<version>')
   await nextTick()
   activateLastTextField()
 }

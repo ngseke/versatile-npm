@@ -7,6 +7,10 @@ export interface Template {
 
 export const templates: Template[] = [
   {
+    value: `npm i ${packageNamePlaceholder}@${packageVersionPlaceholder}`,
+    label: 'npm install with selected version',
+  },
+  {
     value: `pnpm i ${packageNamePlaceholder}`,
     label: 'pnpm',
   },
@@ -26,17 +30,13 @@ export const templates: Template[] = [
     value: `npm i -D @types/${packageNamePlaceholder}`,
     label: 'npm types',
   },
-  {
-    value: `npm i ${packageNamePlaceholder}@${packageVersionPlaceholder}`,
-    label: 'npm install with selected version',
-  },
 ]
 
 export function generateDefaultCustomCommands () {
   return [
+    `npm i ${packageNamePlaceholder}@${packageVersionPlaceholder}`,
     `pnpm i ${packageNamePlaceholder}`,
     `yarn add ${packageNamePlaceholder}`,
     `npm i -D ${packageNamePlaceholder}`,
-    `npm i ${packageNamePlaceholder}@${packageVersionPlaceholder}`,
   ]
 }
