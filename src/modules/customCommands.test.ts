@@ -26,11 +26,11 @@ test('parseCustomCommand', () => {
   expect(parseCustomCommand('')).toMatchObject([])
   expect(parseCustomCommand(name))
     .toMatchObject([
-      { type: 'packageNamePlaceholder', value: '<package>' },
+      { type: 'name', value: '<package>' },
     ])
   expect(parseCustomCommand('pnpm'))
     .toMatchObject([
-      { type: 'packageManager', value: 'pnpm' },
+      { type: 'manager', value: 'pnpm' },
     ])
   expect(parseCustomCommand('yarnnpmpnpm'))
     .toMatchObject([
@@ -46,25 +46,25 @@ test('parseCustomCommand', () => {
     ])
   expect(parseCustomCommand(`ni ${name}${version}${name}${version}${name}`))
     .toMatchObject([
-      { type: 'packageManager', value: 'ni' },
+      { type: 'manager', value: 'ni' },
       { type: 'text', value: ' ' },
-      { type: 'packageNamePlaceholder', value: '<package>' },
-      { type: 'packageVersionPlaceholder', value: '<version>' },
-      { type: 'packageNamePlaceholder', value: '<package>' },
-      { type: 'packageVersionPlaceholder', value: '<version>' },
-      { type: 'packageNamePlaceholder', value: '<package>' },
+      { type: 'name', value: '<package>' },
+      { type: 'version', value: '<version>' },
+      { type: 'name', value: '<package>' },
+      { type: 'version', value: '<version>' },
+      { type: 'name', value: '<package>' },
     ])
   expect(parseCustomCommand(`nvm use 18 && npm cnpm i -D npm before${name}@latest@${version}`))
     .toMatchObject([
       { type: 'text', value: 'nvm use 18 && ' },
-      { type: 'packageManager', value: 'npm' },
+      { type: 'manager', value: 'npm' },
       { type: 'text', value: ' ' },
-      { type: 'packageManager', value: 'cnpm' },
+      { type: 'manager', value: 'cnpm' },
       { type: 'text', value: ' i -D ' },
-      { type: 'packageManager', value: 'npm' },
+      { type: 'manager', value: 'npm' },
       { type: 'text', value: ' before' },
-      { type: 'packageNamePlaceholder', value: '<package>' },
+      { type: 'name', value: '<package>' },
       { type: 'text', value: '@latest@' },
-      { type: 'packageVersionPlaceholder', value: '<version>' },
+      { type: 'version', value: '<version>' },
     ])
 })

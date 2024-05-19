@@ -18,11 +18,11 @@ const chunks = computed(() => parseCustomCommand(props.modelValue))
   >
     <span v-if="chunk.type === 'text'">{{ chunk.value }}</span>
     <span
-      v-else-if="chunk.type === 'packageManager'"
+      v-else-if="chunk.type === 'manager'"
       class="font-weight-bold"
     >{{ chunk.value }}</span>
     <span
-      v-else-if="chunk.type === 'packageNamePlaceholder'"
+      v-else-if="chunk.type === 'name'"
       class="font-weight-bold gradient"
     >{{ chunk.value }}</span>
   </template>

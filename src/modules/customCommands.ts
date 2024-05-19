@@ -24,7 +24,7 @@ export const packageManagers = new Set([
 
 export interface CustomCommandChunk {
   id: string
-  type: 'packageManager' | 'packageNamePlaceholder' | 'packageVersionPlaceholder' | 'text'
+  type: 'manager' | 'name' | 'version' | 'text'
   value: string
 }
 
@@ -40,7 +40,7 @@ export function parseCustomCommand (command: string) {
         chunks.push({ id: nanoid(), type: 'text', value: currentText })
         currentText = ''
       }
-      chunks.push({ id: nanoid(), type: 'packageNamePlaceholder', value: part })
+      chunks.push({ id: nanoid(), type: 'name', value: part })
       return
     }
 
@@ -49,7 +49,7 @@ export function parseCustomCommand (command: string) {
         chunks.push({ id: nanoid(), type: 'text', value: currentText })
         currentText = ''
       }
-      chunks.push({ id: nanoid(), type: 'packageVersionPlaceholder', value: part })
+      chunks.push({ id: nanoid(), type: 'version', value: part })
       return
     }
 
@@ -63,7 +63,7 @@ export function parseCustomCommand (command: string) {
         chunks.push({ id: nanoid(), type: 'text', value: currentText })
         currentText = ''
       }
-      chunks.push({ id: nanoid(), type: 'packageManager', value: part })
+      chunks.push({ id: nanoid(), type: 'manager', value: part })
     } else {
       currentText += part
     }
