@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { VBtn, VList, VListItem, VListItemSubtitle, VListItemTitle, VListSubheader, VMenu } from 'vuetify/components'
-import { customCommandSuggestions } from '../modules/customCommands'
+import { templates } from '../modules/templates'
 
 const emit = defineEmits<{
   'add': [value: string]
@@ -26,7 +26,7 @@ const emit = defineEmits<{
       </VListSubheader>
 
       <template
-        v-for="(item, _index) in customCommandSuggestions"
+        v-for="(item, _index) in templates"
         :key="_index"
       >
         <VListItem

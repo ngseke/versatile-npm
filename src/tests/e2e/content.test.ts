@@ -1,7 +1,8 @@
 import puppeteer, { type Browser, type ElementHandle, type Page } from 'puppeteer'
 import { DATASET_KEY } from '../../pages/content/modules/versatileNpm'
-import { generateCustomCommand, generateDefaultCustomCommands } from '../../modules/customCommands'
+import { generateCustomCommand } from '../../modules/customCommands'
 import { DEBOUNCED_SAVE_DELAY, EXTENSION_ID, TEST_IDS } from '../../modules/constants'
+import { generateDefaultCustomCommands } from '../../modules/templates'
 
 const extensionPath = 'dist'
 const packageName = 'vue'

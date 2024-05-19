@@ -3,27 +3,6 @@ import { nanoid } from 'nanoid'
 export const packageNamePlaceholder = '<package>'
 export const packageVersionPlaceholder = '<version>'
 
-export interface CustomCommandSuggestion {
-  value: string
-  label: string
-}
-
-export const customCommandSuggestions: CustomCommandSuggestion[] = [
-  { value: `pnpm i ${packageNamePlaceholder}`, label: 'pnpm' },
-  { value: `yarn add ${packageNamePlaceholder}`, label: 'yarn' },
-  { value: `npm i -D ${packageNamePlaceholder}`, label: 'npm dev' },
-  { value: `npm i ${packageNamePlaceholder}@latest`, label: 'npm latest' },
-  { value: `npm i -D @types/${packageNamePlaceholder}`, label: 'npm types' },
-]
-
-export function generateDefaultCustomCommands () {
-  return [
-    `pnpm i ${packageNamePlaceholder}`,
-    `yarn add ${packageNamePlaceholder}`,
-    `npm i -D ${packageNamePlaceholder}`,
-  ]
-}
-
 export function generateCustomCommand (
   template: string,
   packageName: string,
