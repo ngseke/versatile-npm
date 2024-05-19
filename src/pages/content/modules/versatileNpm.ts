@@ -10,8 +10,13 @@ export function selectRenderedVersatileNpm () {
   return $(`[data-${DATASET_KEY}]`)
 }
 
-export function getRenderedVersatileNpmPackageName () {
-  return selectRenderedVersatileNpm()?.dataset[DATASET_KEY]
+export function getRenderedVersatileNpm () {
+  const raw = selectRenderedVersatileNpm()?.dataset[DATASET_KEY]
+  const rendered = JSON.parse(raw ?? '{}') as {
+    name: string | undefined
+    version: string | undefined
+  }
+  return rendered
 }
 
 export function selectAllRenderedVersatileNpm () {
@@ -23,7 +28,7 @@ export function renderVersatileNpm (templates: string[]) {
   const name = getNpmPackageName() ?? ''
   const version = getNpmPackageVersion() ?? ''
 
-  $section.dataset[DATASET_KEY] = name
+  $section.dataset[DATASET_KEY] = JSON.stringify({ name, version })
 
   templates
     .map((template) => generateCustomCommand(template, name, version))
