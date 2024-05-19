@@ -1,4 +1,4 @@
-import { getNpmPackageName } from './npmPage'
+import { getNpmPackageName, getNpmPackageVersion } from './npmPage'
 import { generateCustomCommand } from '../../../modules/customCommands'
 import { renderCustomCommand } from './customCommand'
 import { renderCustomCommandSection } from './customCommandSection'
@@ -18,14 +18,15 @@ export function selectAllRenderedVersatileNpm () {
   return $$(`[data-${DATASET_KEY}]`)
 }
 
-export function renderVersatileNpm (customCommandTemplates: string[]) {
+export function renderVersatileNpm (templates: string[]) {
   const $section = renderCustomCommandSection()
-  const packageName = getNpmPackageName() ?? ''
+  const name = getNpmPackageName() ?? ''
+  const version = getNpmPackageVersion() ?? ''
 
-  $section.dataset[DATASET_KEY] = packageName
+  $section.dataset[DATASET_KEY] = name
 
-  customCommandTemplates
-    .map((template) => generateCustomCommand(template, packageName))
+  templates
+    .map((template) => generateCustomCommand(template, name, version))
     .forEach((command) => {
       const $customCommand = renderCustomCommand(command, {
         onClickCopy () {

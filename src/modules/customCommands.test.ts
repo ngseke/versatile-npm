@@ -1,25 +1,30 @@
-import { generateCustomCommand, parseCustomCommand, packageNamePlaceholder as placeholder } from './customCommands'
+import {
+  generateCustomCommand,
+  parseCustomCommand,
+  packageNamePlaceholder as name,
+  packageVersionPlaceholder as version,
+} from './customCommands'
 
 test('generateCustomCommand', () => {
   expect(generateCustomCommand('', 'abc123'))
     .toBe('')
-  expect(generateCustomCommand(placeholder, 'abc123'))
+  expect(generateCustomCommand(name, 'abc123'))
     .toBe('abc123')
   expect(generateCustomCommand('pure string<>', 'abc'))
     .toBe('pure string<>')
-  expect(generateCustomCommand(`npm i -D ${placeholder}`, 'abc123'))
-    .toBe('npm i -D abc123')
-  expect(generateCustomCommand(`yarn add -D ${placeholder} ${placeholder}`, 'abc'))
-    .toBe('yarn add -D abc abc')
-  expect(generateCustomCommand(`ni ${placeholder}${placeholder}${placeholder}`, 'abc'))
+  expect(generateCustomCommand(`npm i -D ${name}@${version}`, 'abc123', '1.2.3'))
+    .toBe('npm i -D abc123@1.2.3')
+  expect(generateCustomCommand(`yarn add -D ${name} ${name} ${version}${version}`, 'abc', '10.12.13'))
+    .toBe('yarn add -D abc abc 10.12.1310.12.13')
+  expect(generateCustomCommand(`ni ${name}${name}${name}`, 'abc'))
     .toBe('ni abcabcabc')
-  expect(generateCustomCommand(`ni before${placeholder}@latest`, 'abc'))
+  expect(generateCustomCommand(`ni before${name}@latest`, 'abc'))
     .toBe('ni beforeabc@latest')
 })
 
 test('parseCustomCommand', () => {
   expect(parseCustomCommand('')).toMatchObject([])
-  expect(parseCustomCommand(placeholder))
+  expect(parseCustomCommand(name))
     .toMatchObject([
       { type: 'packageNamePlaceholder', value: '<package>' },
     ])
@@ -39,15 +44,17 @@ test('parseCustomCommand', () => {
     .toMatchObject([
       { type: 'text', value: ' 123456789  ' },
     ])
-  expect(parseCustomCommand(`ni ${placeholder}${placeholder}${placeholder}`))
+  expect(parseCustomCommand(`ni ${name}${version}${name}${version}${name}`))
     .toMatchObject([
       { type: 'packageManager', value: 'ni' },
       { type: 'text', value: ' ' },
       { type: 'packageNamePlaceholder', value: '<package>' },
+      { type: 'packageVersionPlaceholder', value: '<version>' },
       { type: 'packageNamePlaceholder', value: '<package>' },
+      { type: 'packageVersionPlaceholder', value: '<version>' },
       { type: 'packageNamePlaceholder', value: '<package>' },
     ])
-  expect(parseCustomCommand(`nvm use 18 && npm cnpm i -D npm before${placeholder}@latest`))
+  expect(parseCustomCommand(`nvm use 18 && npm cnpm i -D npm before${name}@latest@${version}`))
     .toMatchObject([
       { type: 'text', value: 'nvm use 18 && ' },
       { type: 'packageManager', value: 'npm' },
@@ -57,6 +64,7 @@ test('parseCustomCommand', () => {
       { type: 'packageManager', value: 'npm' },
       { type: 'text', value: ' before' },
       { type: 'packageNamePlaceholder', value: '<package>' },
-      { type: 'text', value: '@latest' },
+      { type: 'text', value: '@latest@' },
+      { type: 'packageVersionPlaceholder', value: '<version>' },
     ])
 })
