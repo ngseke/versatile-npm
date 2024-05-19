@@ -1,7 +1,8 @@
 import puppeteer, { type Browser, type ElementHandle, type Page } from 'puppeteer'
 import { DATASET_KEY } from '../../pages/content/modules/versatileNpm'
-import { generateCustomCommand, generateDefaultCustomCommands } from '../../modules/customCommands'
+import { generateCustomCommand } from '../../modules/customCommands'
 import { DEBOUNCED_SAVE_DELAY, EXTENSION_ID, TEST_IDS } from '../../modules/constants'
+import { generateDefaultCustomCommands } from '../../modules/templates'
 
 const extensionPath = 'dist'
 const packageName = 'vue'
@@ -41,7 +42,8 @@ describe('Rendering on Npm package page', () => {
 
   async function assertMatchCustomCommandElements (
     templates: string[],
-    packageName: string,
+    name: string,
+    version: string = '',
   ) {
     if (!npmPage) throw new Error()
 
@@ -51,7 +53,7 @@ describe('Rendering on Npm package page', () => {
     expect(elements?.length).toBe(templates.length)
 
     const expectedCommands = templates
-      .map((template) => generateCustomCommand(template, packageName))
+      .map((template) => generateCustomCommand(template, name, version))
 
     for (let i = 0; i < elements.length; i++) {
       const item = elements[i]
@@ -114,6 +116,16 @@ describe('Rendering on Npm package page', () => {
     await new Promise(resolve => setTimeout(resolve, DEBOUNCED_SAVE_DELAY))
   }
 
+  async function getVersion () {
+    if (!(browser && npmPage)) throw new Error()
+    const [$element] = await npmPage.$x(`
+      //*[h3[contains(text(), "Version")]]
+      //div[contains(@class, 'flex')]
+      //p
+    `)
+    return await $element?.evaluate(element => (element as HTMLElement)?.innerText)
+  }
+
   test('npm should be alive', async () => {
     if (!npmPage) throw new Error()
 
@@ -135,7 +147,8 @@ describe('Rendering on Npm package page', () => {
     expect(titleText).toBe('Versatile Npm')
 
     const templates = generateDefaultCustomCommands()
-    await assertMatchCustomCommandElements(templates, packageName)
+    const version = await getVersion()
+    await assertMatchCustomCommandElements(templates, packageName, version)
   })
 
   test('should hide Versatile Npm after it is disabled when the npm page is open', async () => {
@@ -190,7 +203,7 @@ describe('Rendering on Npm package page', () => {
     expect(lastPage?.url()).toBe(optionsUrl)
   })
 
-  test('should render Versatile Npm correctly after navigating to another package', async () => {
+  test('should render correctly after navigating to another package', async () => {
     if (!npmPage) throw new Error()
 
     const templates = ['yarn add <package>']
@@ -233,4 +246,36 @@ describe('Rendering on Npm package page', () => {
 
     await assertMatchCustomCommandElements(templates, packageName)
   })
-}, { retry: 3, timeout: 20000 })
+
+  test('should render correctly after navigating to another version', async () => {
+    if (!npmPage) throw new Error()
+
+    const templates = ['pnpm i <package>@<version>']
+    await removeAllAndAddCommands(templates)
+    await npmPage.bringToFront()
+
+    await assertMatchCustomCommandElements(templates, packageName, await getVersion())
+
+    async function navigateToNthVersion (index: number) {
+      if (!npmPage) throw new Error()
+
+      const tab = await npmPage.$('[aria-controls="tabpanel-versions"]')
+      await tab?.click()
+      await npmPage.waitForNavigation()
+      await npmPage.waitForNetworkIdle()
+
+      const links = await npmPage?.$$('[aria-labelledby="package-tab-versions"] li a')
+      const link = links?.[index]
+
+      await link.click()
+      await npmPage.waitForNavigation()
+      await npmPage.waitForNetworkIdle()
+    }
+
+    await navigateToNthVersion(1)
+    await assertMatchCustomCommandElements(templates, packageName, await getVersion())
+
+    await navigateToNthVersion(2)
+    await assertMatchCustomCommandElements(templates, packageName, await getVersion())
+  })
+})

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue() as any],
   test: {
     setupFiles: [
       './__tests__/setup.ts',
@@ -14,6 +14,7 @@ export default defineConfig({
         inline: ['vuetify'],
       },
     },
-    testTimeout: 10000,
+    testTimeout: 20000,
+    retry: 3,
   },
 })

@@ -1,4 +1,4 @@
-import { $ } from './dom'
+import { $, $x } from './dom'
 
 export function selectNpmCommandInnerCode () {
   return $('p.flex-auto.truncate.db.ma0 > code')
@@ -18,6 +18,20 @@ export function selectMetaOgTitle () {
 export function getNpmPackageName () {
   const name = selectMetaOgTitle()?.getAttribute('content')
   return name ?? null
+}
+
+export function selectNpmPackageVersion () {
+  const [$element] = $x(`
+    //*[h3[contains(text(), "Version")]]
+    //div[contains(@class, 'flex')]
+    //p
+  `)
+  return $element
+}
+
+export function getNpmPackageVersion () {
+  const $element = selectNpmPackageVersion()
+  return $element?.innerText
 }
 
 export function selectSidebarH3 () {

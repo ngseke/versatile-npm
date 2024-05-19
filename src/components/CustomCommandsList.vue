@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { watch, computed, nextTick, unref } from 'vue'
-import { VList, VListItem, VListSubheader } from 'vuetify/components'
+import { VList, VListSubheader } from 'vuetify/components'
 import Draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
 import { useCustomCommands } from '../composables/useCustomCommands'
 import { useCustomCommandsDraft } from '../composables/useCustomCommandsDraft'
-import SuggestionChips from './SuggestionChips.vue'
-import { useCustomCommandSuggestions } from '../composables/useCustomCommandSuggestions'
 import CommandTextField from './CommandTextField.vue'
 import { useTextFieldRef } from '../composables/useTextFieldRef'
 import CustomCommandsListItemLayout from './CustomCommandsListItemLayout.vue'
@@ -14,9 +12,10 @@ import AddButton from './AddButton.vue'
 import { DEBOUNCED_SAVE_DELAY, TEST_IDS } from '../modules/constants'
 import { useDebounceFn } from '@vueuse/core'
 import { cloneDeep, isEqual } from 'lodash-es'
+import CustomCommandTemplateMenu from './CustomCommandTemplateMenu.vue'
 
 const { customCommands, saveCustomCommands } = useCustomCommands()
-const { customCommandDrafts: drafts } = useCustomCommandsDraft()
+const { drafts, add, remove } = useCustomCommandsDraft()
 
 function setDraftsFromCustomCommands (commands: string[]) {
   drafts.value = commands.map((value) => ({ id: nanoid(), value }))
@@ -36,9 +35,7 @@ function save () {
   const newCommands = drafts.value?.map(({ value }) => value)
   if (isEqual(newCommands, customCommands.value)) return
 
-  const filteredCommand = newCommands
-
-  saveCustomCommands(filteredCommand)
+  saveCustomCommands(newCommands)
 }
 
 const debouncedSave = useDebounceFn(save, DEBOUNCED_SAVE_DELAY)
@@ -51,20 +48,10 @@ watch(() => cloneDeep(unref(drafts)), (newDrafts, oldDrafts) => {
   }
 }, { deep: true })
 
-function remove (id: string) {
-  if (!drafts.value) return
-  drafts.value = drafts.value
-    .filter(item => item.id !== id)
-}
-
-function add (value: string) {
-  drafts.value?.push({ id: nanoid(), value })
-}
-
 const { setTextFieldRef, activateLastTextField } = useTextFieldRef()
 
 async function handleClickAdd () {
-  add('<package>')
+  add('<package>@<version>')
   await nextTick()
   activateLastTextField()
 }
@@ -75,8 +62,6 @@ const dragOptions = {
   handle: '.handle',
   itemKey: 'id',
 }
-
-const { unusedCustomCommandSuggestions } = useCustomCommandSuggestions(drafts)
 
 const isExceeded = computed(
   () => (drafts.value?.length ?? Infinity) >= 20
@@ -92,18 +77,8 @@ const isExceeded = computed(
   >
     <VListSubheader>
       Custom Commands
+      <CustomCommandTemplateMenu @add="add" />
     </VListSubheader>
-
-    <VListItem
-      v-if="unusedCustomCommandSuggestions.length "
-      color="transparent"
-    >
-      <SuggestionChips
-        :disabled="isExceeded"
-        :list="unusedCustomCommandSuggestions"
-        @click="(value) => add(value.value)"
-      />
-    </VListItem>
 
     <TransitionGroup name="list">
       <Draggable
@@ -136,7 +111,4 @@ const isExceeded = computed(
 <style lang="sass" scoped>
 .ghost
   opacity: 0.5
-
-.handle
-  cursor: move
 </style>

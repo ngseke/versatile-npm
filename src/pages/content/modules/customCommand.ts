@@ -26,7 +26,7 @@ export function renderCustomCommand (
 
   const chunks = parseCustomCommand(command)
   chunks.forEach(({ value, type }) => {
-    const isPackageManager = type === 'packageManager'
+    const isPackageManager = type === 'manager'
     $code.append(isPackageManager ? renderEmphasis(value) : value)
   })
 

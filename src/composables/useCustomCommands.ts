@@ -1,7 +1,7 @@
 import { onMounted, ref } from 'vue'
 import { loadCustomCommands, saveCustomCommands } from '../modules/storage'
-import { generateDefaultCustomCommands } from '../modules/customCommands'
 import { useChromeStorageListener } from './useChromeStorageListener'
+import { generateDefaultCustomCommands } from '../modules/templates'
 
 export function useCustomCommands () {
   const customCommands = ref<string[] | null>(null)

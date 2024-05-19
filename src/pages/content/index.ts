@@ -1,12 +1,14 @@
 import { loadCustomCommands, loadIsEnabled } from '../../modules/storage'
-import { getNpmPackageName, selectNpmCommandOriginalComponent } from './modules/npmPage'
-import { getRenderedVersatileNpmPackageName, renderVersatileNpm, selectAllRenderedVersatileNpm } from './modules/versatileNpm'
+import { getNpmPackageName, getNpmPackageVersion, selectNpmCommandOriginalComponent } from './modules/npmPage'
+import { getRenderedVersatileNpm, renderVersatileNpm, selectAllRenderedVersatileNpm } from './modules/versatileNpm'
 
 function checkShouldRender () {
   const hasOriginalComponent = Boolean(selectNpmCommandOriginalComponent())
-  const isRendered = getRenderedVersatileNpmPackageName() === getNpmPackageName()
+  const rendered = getRenderedVersatileNpm()
+  const isRendered = rendered.name === getNpmPackageName()
+  const isSameVersion = rendered.version === getNpmPackageVersion()
 
-  const shouldRender = hasOriginalComponent && !isRendered
+  const shouldRender = hasOriginalComponent && (!isRendered || !isSameVersion)
 
   return shouldRender
 }

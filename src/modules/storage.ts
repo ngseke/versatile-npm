@@ -1,4 +1,4 @@
-import { generateDefaultCustomCommands } from './customCommands'
+import { generateDefaultCustomCommands } from './templates'
 
 export const ENABLED_STORAGE_KEY = 'enabled'
 export const CUSTOM_COMMANDS_STORAGE_KEY = 'customCommands'

@@ -1,30 +1,16 @@
 import { nanoid } from 'nanoid'
 
 export const packageNamePlaceholder = '<package>'
+export const packageVersionPlaceholder = '<version>'
 
-export interface CustomCommandSuggestion {
-  value: string
-  label: string
-}
-
-export const customCommandSuggestions: CustomCommandSuggestion[] = [
-  { value: `pnpm i ${packageNamePlaceholder}`, label: 'pnpm' },
-  { value: `yarn add ${packageNamePlaceholder}`, label: 'yarn' },
-  { value: `npm i -D ${packageNamePlaceholder}`, label: 'npm dev' },
-  { value: `npm i ${packageNamePlaceholder}@latest`, label: 'npm latest' },
-  { value: `npm i -D @types/${packageNamePlaceholder}`, label: 'npm types' },
-]
-
-export function generateDefaultCustomCommands () {
-  return [
-    `pnpm i ${packageNamePlaceholder}`,
-    `yarn add ${packageNamePlaceholder}`,
-    `npm i -D ${packageNamePlaceholder}`,
-  ]
-}
-
-export function generateCustomCommand (template: string, packageName: string) {
-  return template.replaceAll(packageNamePlaceholder, packageName)
+export function generateCustomCommand (
+  template: string,
+  packageName: string,
+  packageVersion: string = '',
+) {
+  return template
+    .replaceAll(packageNamePlaceholder, packageName)
+    .replaceAll(packageVersionPlaceholder, packageVersion)
 }
 
 export const packageManagers = new Set([
@@ -38,7 +24,7 @@ export const packageManagers = new Set([
 
 export interface CustomCommandChunk {
   id: string
-  type: 'packageManager' | 'packageNamePlaceholder' | 'text'
+  type: 'manager' | 'name' | 'version' | 'text'
   value: string
 }
 
@@ -46,7 +32,7 @@ export function parseCustomCommand (command: string) {
   const chunks: CustomCommandChunk[] = []
   let currentText = ''
 
-  const regex = new RegExp(`(${packageNamePlaceholder}|\\s+)`)
+  const regex = new RegExp(`(${packageNamePlaceholder}|${packageVersionPlaceholder}|\\s+)`)
 
   command.split(regex).forEach(part => {
     if (part === packageNamePlaceholder) {
@@ -54,7 +40,16 @@ export function parseCustomCommand (command: string) {
         chunks.push({ id: nanoid(), type: 'text', value: currentText })
         currentText = ''
       }
-      chunks.push({ id: nanoid(), type: 'packageNamePlaceholder', value: part })
+      chunks.push({ id: nanoid(), type: 'name', value: part })
+      return
+    }
+
+    if (part === packageVersionPlaceholder) {
+      if (currentText) {
+        chunks.push({ id: nanoid(), type: 'text', value: currentText })
+        currentText = ''
+      }
+      chunks.push({ id: nanoid(), type: 'version', value: part })
       return
     }
 
@@ -68,7 +63,7 @@ export function parseCustomCommand (command: string) {
         chunks.push({ id: nanoid(), type: 'text', value: currentText })
         currentText = ''
       }
-      chunks.push({ id: nanoid(), type: 'packageManager', value: part })
+      chunks.push({ id: nanoid(), type: 'manager', value: part })
     } else {
       currentText += part
     }
