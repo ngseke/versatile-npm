@@ -33,11 +33,11 @@ const emit = defineEmits<{
           prependIcon="fa-solid fa-plus"
           @click="emit('add', item.value)"
         >
-          <VListItemTitle>
-            {{ item.label }}
-          </VListItemTitle>
-          <VListItemSubtitle class="mono">
+          <VListItemTitle class="mono">
             {{ item.value }}
+          </VListItemTitle>
+          <VListItemSubtitle>
+            {{ item.label }}
           </VListItemSubtitle>
         </VListItem>
       </template>
