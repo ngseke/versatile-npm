@@ -264,7 +264,7 @@ describe('Rendering on Npm package page', () => {
       await npmPage.waitForNavigation()
       await npmPage.waitForNetworkIdle()
 
-      const links = await npmPage?.$$('[aria-labelledby="package-tab-versions"] li a')
+      const links = await npmPage?.$$('[aria-labelledby="package-tab-versions"] td a')
       const link = links?.[index]
 
       await link.click()
