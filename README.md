@@ -27,7 +27,7 @@
 ### Download from Chrome Web Store
 
 <a href="https://chromewebstore.google.com/detail/versatile-npm/jahejogdoffpehfhkhbpjblnlhghjnje">
-  <img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png" />
+  <img src="src/assets/img/chrome-web-store.png" />
 </a>
 
 ## Features
