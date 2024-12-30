@@ -18,6 +18,13 @@ const eslintConfig = [
     'plugin:tailwindcss/recommended',
   ),
   stylistic.configs['recommended-flat'],
+  {
+    rules: {
+      'tailwindcss/classnames-order': ['warn', {
+        callees: ['classnames', 'clsx', 'cn'],
+      }],
+    },
+  },
 ]
 
 export default eslintConfig
