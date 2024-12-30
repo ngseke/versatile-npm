@@ -11,7 +11,7 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        brand: '#f44336',
+        brand: 'var(--brand)',
       },
       fontFamily: {
         mono: ['var(--font-jet-brains-mono)'],
