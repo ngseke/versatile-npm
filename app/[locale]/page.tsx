@@ -1,5 +1,6 @@
 import { CodeVariable } from '@/components/CodeVariable'
 import { DownloadLink } from '@/components/DownloadLink'
+import { ExampleList } from '@/components/ExampleList'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Section } from '@/components/Section'
@@ -112,6 +113,16 @@ export default async function Home({
                 className="h-auto w-80 rounded-lg"
               />
             </div>
+
+            <h3 className="text-lg font-medium opacity-70">
+              Customize examples
+            </h3>
+
+            <p>
+              Here are some examples you can use in Versatile Npm.
+            </p>
+
+            <ExampleList />
           </div>
 
         </Section>
@@ -125,7 +136,6 @@ export default async function Home({
           </a>
         </Section>
       </div>
-
       <Footer />
     </main>
   )
