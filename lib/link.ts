@@ -7,3 +7,5 @@ export const latestReleaseLink = 'https://github.com/ngseke/versatile-npm/releas
 export const ngsekeLink = 'https://ngseke.me'
 
 export const pageLink = 'https://versatile-npm.ngseke.me/'
+
+export const githubLink = 'https://github.com/ngseke/versatile-npm'

@@ -1,8 +1,11 @@
+import { CodeVariable } from '@/components/CodeVariable'
 import { DownloadLink } from '@/components/DownloadLink'
+import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Section } from '@/components/Section'
 import { routing } from '@/i18n/routing'
-import { changelogLink, chromeWebStoreLink, latestReleaseLink, ngsekeLink } from '@/lib/link'
+import { changelogLink, chromeWebStoreLink, latestReleaseLink } from '@/lib/link'
+import { IconDownload } from '@tabler/icons-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
 
@@ -31,6 +34,7 @@ export default async function Home({
               {t('download.chromeWebStore')}
             </DownloadLink>
             <DownloadLink href={latestReleaseLink}>
+              <IconDownload size={32} stroke={2.5} />
               {t('download.manualDownload')}
             </DownloadLink>
           </div>
@@ -62,17 +66,17 @@ export default async function Home({
 
             <ul className="mb-4 list-inside list-disc space-y-2">
               <li>
-                <code className="inline-block bg-gradient-to-r from-[var(--brand)] to-[#fe5196] bg-clip-text font-bold text-transparent">
+                <CodeVariable color="red">
                   {'<package>'}
-                </code>
-                <span className="mx-3">—</span>
+                </CodeVariable>
+                <span className="mx-3 after:content-['—']" />
                 {t('features.variablePackageDescription')}
               </li>
               <li>
-                <code className="inline-block bg-gradient-to-r from-[#4facfe] to-[#00f2fe] bg-clip-text font-bold text-transparent">
+                <CodeVariable color="blue">
                   {'<version>'}
-                </code>
-                <span className="mx-3">—</span>
+                </CodeVariable>
+                <span className="mx-3 after:content-['—']" />
                 {t('features.variableVersionDescription')}
               </li>
             </ul>
@@ -99,9 +103,7 @@ export default async function Home({
                 alt="Popup"
                 className="h-auto w-72 rounded-lg"
               />
-              <span className="text-nowrap font-mono text-5xl font-black text-brand after:inline-flex after:rotate-90 after:content-['->'] md:after:rotate-0">
-                <span className="inline-flex rotate-90 md:rotate-0"></span>
-              </span>
+              <span className="text-nowrap font-mono text-5xl font-black text-brand after:inline-flex after:rotate-90 after:content-['->'] md:after:rotate-0" />
               <Image
                 src="/result.png"
                 width={714}
@@ -124,15 +126,7 @@ export default async function Home({
         </Section>
       </div>
 
-      <footer className="flex flex-wrap bg-zinc-900 ">
-        <div className="mx-auto w-full max-w-[50rem] px-4 py-8 font-mono text-sm opacity-70">
-          Made by
-          {' '}
-          <a href={ngsekeLink} className="font-medium hover:underline">
-            @ngseke
-          </a>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }
