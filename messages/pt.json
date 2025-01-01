@@ -1,0 +1,40 @@
+{
+  "Metadata": {
+    "description": "Personalize seus comandos de instalação no npm"
+  },
+  "Header": {
+    "description": "A extensão mais poderosa para personalizar comandos de instalação no <npm></npm>"
+  },
+  "Index": {
+    "download": {
+      "title": "Baixar",
+      "chromeWebStore": "Chrome Web Store",
+      "manualDownload": "Download manual"
+    },
+    "features": {
+      "title": "Recursos",
+      "customizeCommandsSubtitle": "Personalize comandos de instalação",
+      "customizeCommandsParagraphCommands": "Você pode utilizar as seguintes 2 variáveis especiais para compor seu comando pessoal:",
+      "variablePackageDescription": "O nome do pacote npm",
+      "variableVersionDescription": "Versão atualmente selecionada",
+      "customizeCommandsParagraphResult": "E então visite qualquer página de pacote no <npm></npm> para ver o resultado. ✨️",
+      "customizeExamplesSubtitle": "Exemplos de personalização",
+      "customizeExamplesParagraph": "Aqui estão alguns exemplos que você pode usar no Versatile Npm:"
+    },
+    "changelog": {
+      "title": "Registro de alterações"
+    }
+  },
+  "Example": {
+    "installDevDependency": "Instalar como dependência de desenvolvimento",
+    "useYarn": "Usar Yarn",
+    "usePnpm": "Usar PNPM",
+    "useBun": "Usar Bun",
+    "installSpecifiedVersion": "Instalar uma versão especificada",
+    "installTypeDefinitions": "Instalar definições de tipo",
+    "removePackage": "Remover um pacote",
+    "showLove": "Mostre seu amor por um pacote 🫶",
+    "template": "Modelo",
+    "output": "Saída"
+  }
+}

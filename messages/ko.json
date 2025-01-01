@@ -1,0 +1,41 @@
+{
+  "Metadata": {
+    "description": "npm에서 설치 명령을 사용자 정의하세요"
+  },
+  "Header": {
+    "description": "<npm></npm>에서 설치 명령을 사용자 정의할 수 있는 가장 강력한 확장 프로그램"
+  },
+  "Index": {
+    "download": {
+
+      "title": "다운로드",
+      "chromeWebStore": "Chrome 웹 스토어",
+      "manualDownload": "수동 다운로드"
+    },
+    "features": {
+      "title": "기능",
+      "customizeCommandsSubtitle": "설치 명령 사용자 정의",
+      "customizeCommandsParagraphCommands": "다음 두 가지 특수 변수를 사용하여 개인 명령을 구성할 수 있습니다:",
+      "variablePackageDescription": "npm 패키지 이름",
+      "variableVersionDescription": "현재 선택된 버전",
+      "customizeCommandsParagraphResult": "그런 다음 <npm></npm>의 패키지 페이지를 방문하여 결과를 확인하세요. ✨️",
+      "customizeExamplesSubtitle": "사용자 정의 예제",
+      "customizeExamplesParagraph": "Versatile Npm에서 사용할 수 있는 몇 가지 예제는 다음과 같습니다:"
+    },
+    "changelog": {
+      "title": "변경 로그"
+    }
+  },
+  "Example": {
+    "installDevDependency": "개발 종속성으로 설치",
+    "useYarn": "Yarn 사용",
+    "usePnpm": "PNPM 사용",
+    "useBun": "Bun 사용",
+    "installSpecifiedVersion": "지정된 버전 설치",
+    "installTypeDefinitions": "타입 정의 설치",
+    "removePackage": "패키지 제거",
+    "showLove": "패키지에 대한 애정을 표현하세요 🫶",
+    "template": "템플릿",
+    "output": "출력"
+  }
+}

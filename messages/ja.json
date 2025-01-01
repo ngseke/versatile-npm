@@ -1,0 +1,40 @@
+{
+  "Metadata": {
+    "description": "npm のインストールコマンドをカスタマイズする"
+  },
+  "Header": {
+    "description": "最も強力な <npm></npm> のインストールコマンドをカスタマイズする拡張機能"
+  },
+  "Index": {
+    "download": {
+      "title": "ダウンロード",
+      "chromeWebStore": "Chrome ウェブストア",
+      "manualDownload": "手動ダウンロード"
+    },
+    "features": {
+      "title": "機能",
+      "customizeCommandsSubtitle": "インストールコマンドをカスタマイズする",
+      "customizeCommandsParagraphCommands": "以下の2つの特別な変数を利用して、個人のコマンドを作成できます：",
+      "variablePackageDescription": "npm パッケージ名",
+      "variableVersionDescription": "現在選択されているバージョン",
+      "customizeCommandsParagraphResult": "そして、<npm></npm> の任意のパッケージページにアクセスして結果を確認してください。✨️",
+      "customizeExamplesSubtitle": "カスタマイズ例",
+      "customizeExamplesParagraph": "Versatile Npm で使用できるいくつかの例を以下に示します："
+    },
+    "changelog": {
+      "title": "変更履歴"
+    }
+  },
+  "Example": {
+    "installDevDependency": "dev 依存関係としてインストール",
+    "useYarn": "Yarn を使用",
+    "usePnpm": "PNPM を使用",
+    "useBun": "Bun を使用",
+    "installSpecifiedVersion": "指定されたバージョンをインストール",
+    "installTypeDefinitions": "型定義をインストール",
+    "removePackage": "パッケージを削除",
+    "showLove": "パッケージへの愛を示す 🫶",
+    "template": "テンプレート",
+    "output": "出力"
+  }
+}

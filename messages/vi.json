@@ -1,0 +1,40 @@
+{
+  "Metadata": {
+    "description": "Tùy chỉnh lệnh cài đặt của bạn trên npm"
+  },
+  "Header": {
+    "description": "Tiện ích mở rộng mạnh mẽ nhất để tùy chỉnh lệnh cài đặt trên <npm></npm>"
+  },
+  "Index": {
+    "download": {
+      "title": "Tải xuống",
+      "chromeWebStore": "Chrome Web Store",
+      "manualDownload": "Tải xuống thủ công"
+    },
+    "features": {
+      "title": "Tính năng",
+      "customizeCommandsSubtitle": "Tùy chỉnh lệnh cài đặt",
+      "customizeCommandsParagraphCommands": "Bạn có thể sử dụng 2 biến đặc biệt sau để tạo lệnh cá nhân của mình:",
+      "variablePackageDescription": "Tên gói npm",
+      "variableVersionDescription": "Phiên bản hiện tại được chọn",
+      "customizeCommandsParagraphResult": "Và sau đó truy cập bất kỳ trang gói nào trên <npm></npm> để xem kết quả. ✨️",
+      "customizeExamplesSubtitle": "Ví dụ tùy chỉnh",
+      "customizeExamplesParagraph": "Dưới đây là một số ví dụ bạn có thể sử dụng trong Versatile Npm:"
+    },
+    "changelog": {
+      "title": "Nhật ký thay đổi"
+    }
+  },
+  "Example": {
+    "installDevDependency": "Cài đặt như một phụ thuộc phát triển",
+    "useYarn": "Sử dụng Yarn",
+    "usePnpm": "Sử dụng PNPM",
+    "useBun": "Sử dụng Bun",
+    "installSpecifiedVersion": "Cài đặt phiên bản cụ thể",
+    "installTypeDefinitions": "Cài đặt định nghĩa kiểu",
+    "removePackage": "Gỡ bỏ một gói",
+    "showLove": "Thể hiện tình yêu của bạn với một gói 🫶",
+    "template": "Mẫu",
+    "output": "Đầu ra"
+  }
+}
