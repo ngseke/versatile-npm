@@ -1,10 +1,12 @@
 import { locales } from '@/i18n/locales'
 import { Link } from '@/i18n/routing'
-import { useTranslations } from 'next-intl'
+import { cn } from '@/lib/cn'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 export function Header() {
   const t = useTranslations('Header')
+  const locale = useLocale()
 
   return (
     <header className="flex min-h-[30rem] flex-col items-center justify-center gap-8  px-4 pt-16">
@@ -42,7 +44,17 @@ export function Header() {
         {
           locales.map(({ code, name }) => (
             <li key={code}>
-              <Link href="/" locale={code} className="rounded-md border border-zinc-900 p-2 hover:border-zinc-800">
+              <Link
+                href="/"
+                locale={code}
+                className={cn(
+                  'inline-block rounded-md border border-zinc-900 px-1.5',
+                  {
+                    'border-zinc-500': locale === code,
+                    'hover:border-zinc-800': locale !== code,
+                  },
+                )}
+              >
                 {name}
               </Link>
             </li>
