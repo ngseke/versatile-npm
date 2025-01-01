@@ -23,6 +23,11 @@ const list: Item[] = [
   },
   'divider',
   {
+    title: 'Help',
+    icon: 'fa-solid fa-circle-question',
+    href: 'https://versatile-npm.ngseke.me/',
+  },
+  {
     title: 'Chrome Web Store',
     icon: 'fa-brands fa-chrome',
     href: 'https://chromewebstore.google.com/detail/versatile-npm/jahejogdoffpehfhkhbpjblnlhghjnje',
