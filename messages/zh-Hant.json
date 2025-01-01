@@ -17,10 +17,24 @@
       "customizeCommandsParagraphCommands": "你可以善用以下兩個特殊變數來組合你的專屬指令：",
       "variablePackageDescription": "npm 套件名稱",
       "variableVersionDescription": "目前選擇的版本",
-      "customizeCommandsParagraphResult": "接著至 <npm></npm> 的套件頁面查看效果。✨️"
+      "customizeCommandsParagraphResult": "接著至 <npm></npm> 的套件頁面查看效果。✨️",
+      "customizeExamplesSubtitle": "自訂範例",
+      "customizeExamplesParagraph": "以下是一些你可以在 Versatile Npm 中使用的範例："
     },
     "changelog": {
       "title": "版本記錄"
     }
+  },
+  "Example": {
+    "installDevDependency": "安裝成 dev dependency",
+    "useYarn": "使用 Yarn",
+    "usePnpm": "使用 PNPM",
+    "useBun": "使用 Bun",
+    "installSpecifiedVersion": "安裝指定版本",
+    "installTypeDefinitions": "安裝類型定義",
+    "removePackage": "移除套件",
+    "showLove": "表達你對套件的愛 🫶",
+    "template": "模板",
+    "output": "輸出"
   }
 }

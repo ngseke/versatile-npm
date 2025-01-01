@@ -115,11 +115,11 @@ export default async function Home({
             </div>
 
             <h3 className="text-lg font-medium opacity-70">
-              Customize examples
+              {t('features.customizeExamplesSubtitle')}
             </h3>
 
-            <p>
-              Here are some examples you can use in Versatile Npm.
+            <p className="mb-2">
+              {t('features.customizeExamplesParagraph')}
             </p>
 
             <ExampleList />

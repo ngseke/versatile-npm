@@ -17,10 +17,24 @@
       "customizeCommandsParagraphCommands": "You can utilize the following 2 special variables to compose your personal command:",
       "variablePackageDescription": "The npm package name",
       "variableVersionDescription": "Currently selected version",
-      "customizeCommandsParagraphResult": "And then visit any package page on <npm></npm> to view the result. ✨️"
+      "customizeCommandsParagraphResult": "And then visit any package page on <npm></npm> to view the result. ✨️",
+      "customizeExamplesSubtitle": "Customize examples",
+      "customizeExamplesParagraph": "Here are some examples you can use in Versatile Npm:"
     },
     "changelog": {
       "title": "Changelog"
     }
+  },
+  "Example": {
+    "installDevDependency": "Install as a dev dependency",
+    "useYarn": "Use Yarn",
+    "usePnpm": "Use PNPM",
+    "useBun": "Use Bun",
+    "installSpecifiedVersion": "Install a specified version",
+    "installTypeDefinitions": "Install type definitions",
+    "removePackage": "Remove a package",
+    "showLove": "Show your love for a package 🫶",
+    "template": "Template",
+    "output": "Output"
   }
 }
