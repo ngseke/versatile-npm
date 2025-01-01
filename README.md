@@ -1,5 +1,7 @@
 <p align=center>
-  <img src="src/assets/img/icon.png" width="200"/>
+  <a href="http://versatile-npm.ngseke.me/">
+    <img src="src/assets/img/icon.png" width="200"/>
+  </a>
 </p>
 
 <p align=center>
@@ -29,6 +31,10 @@
 <a href="https://chromewebstore.google.com/detail/versatile-npm/jahejogdoffpehfhkhbpjblnlhghjnje">
   <img src="src/assets/img/chrome-web-store.png" />
 </a>
+
+## Documentation
+
+http://versatile-npm.ngseke.me/
 
 ## Features
 
