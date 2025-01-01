@@ -1,4 +1,7 @@
 {
+  "Metadata": {
+    "description": "自訂你的 npm 安裝指令"
+  },
   "Header": {
     "description": "最給力的自訂 <npm></npm> 安裝指令擴充功能"
   },

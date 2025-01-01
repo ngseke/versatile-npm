@@ -1,4 +1,7 @@
 {
+  "Metadata": {
+    "description": "Customize your install commands on npm"
+  },
   "Header": {
     "description": "The most powerful extension for customizing install commands on <npm></npm>"
   },

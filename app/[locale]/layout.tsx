@@ -1,13 +1,13 @@
-import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/cn'
 import { ngsekeLink, pageLink } from '@/lib/link'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, setRequestLocale } from 'next-intl/server'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import { ReactNode } from 'react'
+import { Metadata } from 'next'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -19,23 +19,32 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
 })
 
-const title = 'Versatile Npm'
-const description = 'The most powerful extension for customizing install commands on npm.'
+export async function generateMetadata({
+  params,
+}: Readonly<{
+  params: Promise<{ locale: string }>
+}>) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Metadata' })
 
-export const metadata: Metadata = {
-  title,
-  description,
-  authors: { name: 'Sean Huang', url: ngsekeLink },
-  icons: {
-    icon: '/icon.png',
-  },
-  openGraph: {
-    siteName: title,
-    title: title,
+  const description = t('description')
+  const title = `Versatile Npm: ${description}`
+
+  return {
+    title,
     description,
-    images: '/icon.png',
-  },
-  metadataBase: new URL(pageLink),
+    authors: { name: 'Sean Huang', url: ngsekeLink },
+    icons: {
+      icon: '/icon.png',
+    },
+    openGraph: {
+      siteName: title,
+      title: title,
+      description,
+      images: '/icon.png',
+    },
+    metadataBase: new URL(pageLink),
+  } satisfies Metadata
 }
 
 export default async function RootLayout({
