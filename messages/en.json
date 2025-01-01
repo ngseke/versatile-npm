@@ -1,0 +1,23 @@
+{
+  "Header": {
+    "description": "The most powerful extension for customizing install commands on <npm></npm>"
+  },
+  "Index": {
+    "download": {
+      "title": "Download",
+      "chromeWebStore": "Chrome Web Store",
+      "manualDownload": "Manual Download"
+    },
+    "features": {
+      "title": "Features",
+      "customizeCommandsSubtitle": "Customize install commands",
+      "customizeCommandsParagraphCommands": "You can utilize the following 2 special variables to compose your personal command:",
+      "variablePackageDescription": "The npm package name",
+      "variableVersionDescription": "Currently selected version",
+      "customizeCommandsParagraphResult": "And then visit any package page on <npm></npm> to view the result. ✨️"
+    },
+    "changelog": {
+      "title": "Changelog"
+    }
+  }
+}

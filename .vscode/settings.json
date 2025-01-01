@@ -9,4 +9,8 @@
     "testid",
     "vuetify"
   ],
+  "i18n-ally.localesPaths": [
+    "i18n",
+    "messages"
+  ],
 }
