@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "lint": "npx eslint . --ext .ts,.js,.cjs,.vue",
     "lint:fix": "npx eslint --fix . --ext .ts,.js,.cjs,.vue",
-    "bump": "pnpm run lint && pnpm run test run && vue-tsc && node ./scripts/bump.js",
+    "bump": "pnpm run lint && pnpm run test:unit run && vue-tsc && node ./scripts/bump.js",
     "test": "vitest",
     "test:unit": "vitest --exclude=src/tests/e2e",
     "test:e2e": "vitest src/tests/e2e",

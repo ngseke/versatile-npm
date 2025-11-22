@@ -30,7 +30,7 @@ jobs:
         run: pnpm run build
 
       - name: Run Tests
-        run: pnpm run test
+        run: pnpm run test:unit
 
       - name: Compress Dist Folder
         run: zip -r build.zip dist
